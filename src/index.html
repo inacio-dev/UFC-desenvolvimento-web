@@ -2,26 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Exemplo de utilização do Header</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UFC</title>
     <link rel="stylesheet" type="text/css" href="./styles/index.css" />
   </head>
 
-  <body>
-    <object
-      id="header"
-      data="./components/header.html"
-      type="text/html"
-    ></object>
+  <object id="header" data="./components/header.html" type="text/html"></object>
 
+  <body>
     <main>
-      <div></div>
+      <div class="buttons">
+        <button class="menu_b">
+          <img src="./images/rising.svg" alt="rising" />Rising
+        </button>
+        <button class="menu_b">
+          <img src="./images/categories.svg" alt="rising" />Categories
+        </button>
+      </div>
 
       <div class="images">
-        <p class="image">123</p>
-        <p class="image">123</p>
-        <p class="image">123</p>
-        <p class="image">123</p>
-        <p class="image">123</p>
+        <img src="./images/test-image.jpg" alt="image" class="image" />
+        <img src="./images/test-image.jpg" alt="image" class="image" />
+        <img src="./images/test-image.jpg" alt="image" class="image" />
+        <img src="./images/test-image.jpg" alt="image" class="image" />
+        <img src="./images/test-image.jpg" alt="image" class="image" />
       </div>
     </main>
   </body>

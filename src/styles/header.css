@@ -11,6 +11,7 @@ header {
   padding-right: 10%;
   padding-top: 20px;
   padding-bottom: 20px;
+  font-weight: bold;
 }
 
 .menu {
@@ -65,4 +66,22 @@ nav ul li {
 nav ul li a {
   color: white;
   text-decoration: none;
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (max-width: 1023px) {
+  header {
+    flex-direction: column;
+  }
+
+  .menu {
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  nav {
+    margin-top: 20px;
+  }
 }
