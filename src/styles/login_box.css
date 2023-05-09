@@ -1,0 +1,71 @@
+@import url("styles.css")
+
+object{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    
+  }
+
+*{  
+    box-sizing: border-box;
+    text-decoration: none;
+    color: aliceblue;
+}
+body{
+    display: flex;
+    flex-direction: row;
+    
+}
+.input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    border-bottom: 2px solid #fff;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: aliceblue;
+    font-weight: 500;
+    font-size: 16px;
+    /* padding-right: 25px; */
+}
+.input-box label{
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+    top:50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid ~label{
+    top : -5px;
+}
+
+.login_btn{
+    width: 100%;
+    height: 33px;
+    background: aliceblue;
+    /* border: none; */
+    /* outline: none; */
+    border-radius: 8px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.2);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+
+    background-color: #3866F2;
+    color: aliceblue;
+}
