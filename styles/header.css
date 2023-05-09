@@ -7,11 +7,11 @@ header {
   align-items: center;
   justify-items: center;
   display: flex;
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-top: 20px;
-  padding-bottom: 20px;
   font-weight: bold;
+  position: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 20px 0;
 }
 
 .menu {
@@ -69,6 +69,13 @@ nav ul li a {
 }
 
 @media screen and (min-width: 1024px) {
+  .logo {
+    margin-left: 15%;
+  }
+
+  .menu {
+    margin-right: 15%;
+  }
 }
 
 @media screen and (max-width: 1023px) {

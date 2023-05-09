@@ -6,27 +6,12 @@ main {
   align-items: center;
   flex-direction: column;
   background-color: var(--slate-dark-3);
-  background-size: 100%;
-  width: 100%;
-  padding-bottom: 200px;
-  gap: 50px;
-}
-
-#header {
-  display: block;
-  position: fixed;
-  width: 100%;
-  height: auto;
-  border: none;
-  margin: 0;
-  padding: 0;
 }
 
 .buttons {
   display: flex;
   align-items: center;
-  width: 100vh;
-  gap: 20px;
+  margin-bottom: 50px;
 }
 
 .menu_b {
@@ -40,29 +25,41 @@ main {
   background-color: rgba(167, 173, 198, 0.15);
   color: var(--slate-light-1);
   font-weight: bold;
+  margin-right: 20px;
 }
 
 .menu_b:hover {
   background-color: rgba(167, 173, 198, 0.4);
 }
 
-.images {
+.grid-container {
   display: grid;
   justify-content: center;
   justify-items: center;
   align-items: center;
-  gap: 5%;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-bottom: 200px;
+  gap: 30px;
+}
+
+.grid-item {
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
+  transition: all;
+  transition-duration: 100ms;
+  border-radius: 8px;
 }
 
 .image {
-  display: flex;
-  background-size: contain;
-  border-radius: 8px;
-  transition: all;
-  transition-duration: 100ms;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: left center;
 }
 
-.image:hover {
+.grid-item:hover {
   transform: scale(110%);
 }
 
@@ -71,20 +68,13 @@ main {
     padding-top: 150px;
   }
 
-  #header {
-    height: 96px;
-  }
-
   .buttons {
+    margin-right: 55%;
     justify-content: left;
   }
 
-  .images {
+  .grid-container {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .image {
-    width: 100%;
   }
 }
 
@@ -93,19 +83,11 @@ main {
     padding-top: 250px;
   }
 
-  #header {
-    height: 200px;
-  }
-
   .buttons {
     justify-content: center;
   }
 
-  .images {
+  .grid-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .image {
-    width: 75%;
   }
 }
