@@ -5,13 +5,27 @@ main {
   justify-items: center;
   align-items: center;
   flex-direction: column;
-  background-color: #6E633D;
+  background-color: var(--slate-dark-3);
 }
 
 .buttons {
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+}
+
+.search-span {
+  color: var(--slate-light-1);
+  font-weight: bold;
+  font-size: x-large;
+  padding: 40px;
+}
+
+.image-span {
+  color: var(--slate-light-1);
+  font-weight: bold;
+  font-size: larger;
+  margin-bottom: 20px;
 }
 
 .menu_b {
@@ -39,31 +53,23 @@ main {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  padding-bottom: 400px;
+  padding-bottom: 200px;
   gap: 30px;
 }
 
-.grid-item {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
+.grid-user {
+  width: 100px;
+  height: 120px;
+  overflow: hidden;
   transition: all;
   transition-duration: 100ms;
+  border-radius: 8px;
 }
 
-.categorie-name {
-  color: var(--slate-light-1);
-  font-weight: bold;
-  margin-top: 20px;
-  font-size: larger;
-}
-
-.grid-image {
-  width: 250px;
-  height: 300px;
+.grid-item {
   overflow: hidden;
-
+  transition: all;
+  transition-duration: 100ms;
   border-radius: 8px;
 }
 
@@ -72,6 +78,10 @@ main {
   height: 100%;
   object-fit: fill;
   object-position: left center;
+}
+
+.grid-user:hover {
+  transform: scale(110%);
 }
 
 .grid-item:hover {
@@ -91,6 +101,11 @@ main {
   .grid-container {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .grid-item {
+    width: 250px;
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 1023px) {
@@ -104,5 +119,10 @@ main {
 
   .grid-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-item {
+    width: 150px;
+    height: 200px;
   }
 }

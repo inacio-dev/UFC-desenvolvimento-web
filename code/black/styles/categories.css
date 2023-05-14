@@ -1,61 +1,11 @@
 @import url("global.css");
 
-.profile-div {
-  width: 100%;
-  align-items: start;
-  justify-items: center;
-  justify-content: center;
-  display: flex;
-  margin-bottom: 80px;
-  color: var(--slate-light-1);
-}
-
-.user-div {
-  background-color: var(--dark-purple);
-  width: 20%;
-  margin-left: 15%;
-  margin-right: 5%;
-  border-radius: 8px;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px;
-}
-
-.username {
-  font-weight: bold;
-  font-size: xx-large;
-}
-
-.details-div {
-  background-color: var(--dark-purple);
-  width: 50%;
-  margin-right: 15%;
-  border-radius: 8px;
-  align-items: start;
-  justify-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.image-user {
-  width: 100px;
-  height: 140px;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
 main {
   display: flex;
   justify-items: center;
   align-items: center;
   flex-direction: column;
-  background-color: #6E633D;
+  background-color: var(--slate-dark-3);
 }
 
 .buttons {
@@ -89,16 +39,28 @@ main {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  padding-bottom: 200px;
+  padding-bottom: 400px;
   gap: 30px;
 }
 
 .grid-item {
-  width: 250px;
-  height: 300px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
   transition: all;
   transition-duration: 100ms;
+}
+
+.categorie-name {
+  color: var(--slate-light-1);
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: larger;
+}
+
+.grid-image {
+  overflow: hidden;
   border-radius: 8px;
 }
 
@@ -126,6 +88,11 @@ main {
   .grid-container {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .grid-image {
+    width: 250px;
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 1023px) {
@@ -139,5 +106,10 @@ main {
 
   .grid-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-image {
+    width: 150px;
+    height: 200px;
   }
 }
