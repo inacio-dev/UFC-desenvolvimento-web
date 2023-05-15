@@ -9,9 +9,10 @@ const app = express();
 const db = new Datastore({ filename: "data.db", autoload: true });
 
 const routes = [
-  { path: "/", component: "search" },
-  { path: "/sobre", component: "sobre" },
+  { path: "/", component: "pages/index" },
+  { path: "/sobre", component: "pages/about" },
   { path: "/contato", component: "contato" },
+  { path: "/perfil/:id", component: "pages/profile" },
 ];
 
 app.set("views", path.join(__dirname, "views"));
@@ -20,20 +21,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("*", (req, res) => {
-  const route = routes.find((r) => r.path === req.url);
+  const route = routes.find((r) => {
+    const pattern = new RegExp(`^${r.path.replace(/:[^\s/]+/g, "([\\w-]+)")}$`);
+    return pattern.test(req.url);
+  });
+
   if (route) {
     const componentPath = path.join(
       __dirname,
       "views",
       route.component + ".ejs"
     );
-    fs.readFile(componentPath, "utf8", (err, data) => {
+    const params = { ...req.params };
+    const queryParams = { ...req.query };
+    const data = { ...params, ...queryParams };
+    fs.readFile(componentPath, "utf8", (err, content) => {
       if (err) {
         console.error(err);
         res.status(500).send("<h1>Erro interno do servidor</h1>");
       } else {
-        res.render("index", {
-          content: data,
+        res.render("main", {
+          content,
+          data,
         });
       }
     });

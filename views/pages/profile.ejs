@@ -1,0 +1,13 @@
+<html lang="en">
+  <body>
+    <main>
+      <h1>Página de perfil</h1>
+      <p>Seu ID é: <span><%= id %></span></p>
+      <form action="/search" method="post">
+        <label for="query">Buscar:</label>
+        <input type="text" id="query" name="query" required />
+        <button type="submit">Pesquisar</button>
+      </form>
+    </main>
+  </body>
+</html>
