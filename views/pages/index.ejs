@@ -1,7 +1,21 @@
 <html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+  </head>
+
   <body>
     <main>
       <h1>Página inicial</h1>
+
+      <div class="buttons">
+        <button class="menu_b">
+          <img src="../images/rising.svg" alt="rising" />Rising
+        </button>
+        <button class="menu_b">
+          <img src="../images/categories.svg" alt="rising" />Categories
+        </button>
+      </div>
+
       <form action="/search" method="post">
         <label for="query">Buscar:</label>
         <input type="text" id="query" name="query" required />
