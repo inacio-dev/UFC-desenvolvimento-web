@@ -2,7 +2,7 @@
 
 ## Introdução
 
-A aplicação proposta é uma plataforma web que oferece ao usuário a possibilidade de criar novas imagens através da técnica de transferência de estilo. O objetivo é oferecer uma ferramenta simples e eficaz que permita ao usuário criar novas imagens com base em suas preferências pessoais de estilo.
+Esse repositório tem como objetivo fornecer uma plataforma onde os usuários podem compartilhar suas imagens de alta qualidade e interagir com outros usuários.
 
 ### Restrições
 
@@ -16,20 +16,20 @@ Para atender às restrições estabelecidas, a aplicação terá as seguintes fu
 
 ## Descrição do Produto
 
-A plataforma consiste em uma aplicação web onde o usuário poderá realizar a transferência de estilo de suas imagens. Para isso, o usuário deverá cadastrar-se na plataforma e fazer o upload de suas imagens. Em seguida, poderá escolher uma imagem de referência e aplicar o estilo desejado para gerar a nova imagem. As imagens criadas ficarão associadas à conta do usuário, permitindo que ele possa retornar e editar ou excluir as imagens a qualquer momento.
+Nossa plataforma é projetada para oferecer aos usuários a oportunidade de exibir suas melhores imagens e até mesmo vender seus direitos para empresas que procuram imagens de alta qualidade para uso em publicidade, marketing e outros fins comerciais. Com um sistema fácil de usar, os usuários podem criar uma conta, fazer upload de suas imagens e compartilhá-las com outros usuários. Além disso, os usuários têm a capacidade de receber pagamento por suas imagens vendidas para empresas. 
 
 ## Problema a ser tratado
 
-A falta de ferramentas de transferência de estilo para imagens disponíveis de forma fácil e acessível para usuários comuns é um problema enfrentado atualmente. A plataforma proposta busca resolver este problema, oferecendo uma ferramenta de transferência de estilo para imagens acessível e fácil de usar.
+Com a nossa aplicação, acreditamos que estamos criando uma comunidade de fotógrafos, artistas e entusiastas de imagens que podem compartilhar seus trabalhos com o mundo de uma forma fácil e eficiente.
 
 ## Aptidões principais da aplicação
 
-A aplicação oferece aos usuários uma ferramenta para criar novas imagens a partir de suas preferências pessoais de estilo, utilizando a técnica de transferência de estilo. Com a possibilidade de armazenamento das imagens na plataforma, o usuário poderá editar e gerenciar as imagens a qualquer momento.
+A aplicação oferece aos usuários uma ferramenta para exibir novas imagens a partir de suas preferências pessoais de estilo. Com a possibilidade de armazenamento das imagens na plataforma, o usuário poderá editar e gerenciar as imagens a qualquer momento.
 
 ## Público-alvo
 
-A plataforma é direcionada a qualquer pessoa que deseje criar novas imagens personalizadas utilizando a técnica de transferência de estilo de forma fácil e acessível. Pode ser utilizada por pessoas comuns, designers, artistas e outros profissionais que trabalham com imagens.
+A plataforma é direcionada a qualquer pessoa que deseje exibir suas imagens personalizadas de forma fácil e acessível. Pode ser utilizada por pessoas comuns, designers, artistas e outros profissionais que trabalham com imagens.
 
 ## Conclusão
 
-A plataforma proposta oferece aos usuários uma ferramenta eficaz e fácil de usar para criação de novas imagens através da técnica de transferência de estilo. Atendendo às restrições estabelecidas, a aplicação tem como objetivo oferecer um ambiente seguro e controlado para a criação e gerenciamento de conteúdo.
+Atendendo às restrições estabelecidas, a aplicação tem como objetivo oferecer um ambiente seguro e controlado para a criação e gerenciamento de conteúdo.
