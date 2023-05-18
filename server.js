@@ -51,7 +51,7 @@ app.get("*", (req, res) => {
     const data = { ...params, ...queryParams };
 
     const isFileRequest = req.url.includes(".");
-    const newData = isFileRequest ? {} : data;
+    const newData = isFileRequest ? undefined : data;
 
     fs.readFile(componentPath, "utf8", (err, content) => {
       if (err) {
