@@ -39,16 +39,28 @@ main {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  padding-bottom: 200px;
+  padding-bottom: 400px;
   gap: 30px;
 }
 
 .grid-item {
-  width: 250px;
-  height: 300px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
   transition: all;
   transition-duration: 100ms;
+}
+
+.categorie-name {
+  color: var(--slate-light-1);
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: larger;
+}
+
+.grid-image {
+  overflow: hidden;
   border-radius: 8px;
 }
 
@@ -76,6 +88,11 @@ main {
   .grid-container {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .grid-image {
+    width: 250px;
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 1023px) {
@@ -89,5 +106,10 @@ main {
 
   .grid-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-image {
+    width: 150px;
+    height: 200px;
   }
 }

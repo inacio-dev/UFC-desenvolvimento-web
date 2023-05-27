@@ -5,22 +5,26 @@
 
   <body>
     <main>
-      <h1>Página inicial</h1>
-
       <div class="buttons">
         <button class="menu_b">
-          <img src="../images/rising.svg" alt="rising" />Rising
+          <img src="./rising.svg" alt="rising" />Rising
         </button>
-        <button class="menu_b">
-          <img src="../images/categories.svg" alt="rising" />Categories
-        </button>
+        <a href="/categorias" class="menu_b">
+          <img src="./categories.svg" alt="rising" />Categories
+        </a>
       </div>
 
-      <form action="/search" method="post">
-        <label for="query">Buscar:</label>
-        <input type="text" id="query" name="query" required />
-        <button type="submit">Pesquisar</button>
-      </form>
+      <div class="grid-container">
+        <% for (var i = 0; i < imageData.length; i++) { %>
+        <div class="grid-item">
+          <img
+            src="<%= imageData[i].imageSrc %>"
+            alt="<%= imageData[i].altText %>"
+            class="image"
+          />
+        </div>
+        <% } %>
+      </div>
     </main>
   </body>
 </html>

@@ -1,13 +1,32 @@
 <html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="./styles/header.css" />
+  </head>
+
   <body>
     <header>
-      <nav>
-        <ul>
-          <li><a href="/">Página Inicial</a></li>
-          <li><a href="/sobre">Sobre Nós</a></li>
-          <li><a href="/contato">Entre em Contato</a></li>
-        </ul>
-      </nav>
+      <img class="logo" src="./logo.svg" alt="logo" />
+
+      <div class="menu">
+        <form class="search-container">
+          <button type="submit" class="search-button">
+            <img src="./search.svg" alt="search" />
+          </button>
+          <input
+            type="text"
+            placeholder="Search"
+            name="search"
+            class="search-input"
+          />
+        </form>
+
+        <nav>
+          <ul>
+            <li><a href="#">Sign in</a></li>
+            <li><a href="#">Sign up</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
   </body>
 </html>

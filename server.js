@@ -8,8 +8,21 @@ const { pathToRegexp } = require("path-to-regexp");
 const app = express();
 
 const routes = [
-  { path: "/", component: "pages/index" },
-  { path: "/sobre", component: "pages/about" },
+  {
+    path: "/",
+    component: "pages/index",
+    data: {
+      imageData: [
+        { imageSrc: "/images/test-image.jpg", altText: "image 1" },
+        { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+        { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+        { imageSrc: "/images/test-image.jpg", altText: "image 1" },
+        { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+        { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+      ],
+    },
+  },
+  { path: "/categorias", component: "pages/categories" },
   { path: "/contato", component: "contato" },
   { path: "/perfil/:id", component: "pages/profile" },
 ];
@@ -48,7 +61,7 @@ app.get("*", (req, res) => {
       route.component + ".ejs"
     );
     const queryParams = req.query;
-    const data = { ...params, ...queryParams };
+    const data = { ...params, ...queryParams, ...route.data };
 
     const isFileRequest = req.url.includes(".");
     const newData = isFileRequest ? undefined : data;
