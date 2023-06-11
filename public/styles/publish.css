@@ -5,7 +5,7 @@ main {
   justify-items: center;
   align-items: center;
   flex-direction: column;
-  background-color: var(--slate-dark-3);
+  background-color: var(--slate-dark-3); 
 }
 
 .buttons {
