@@ -5,28 +5,34 @@
 
   <body>
     <header>
-      <img class="logo" src="../icons/logo.svg" alt="logo" />
+      <img class="logo" src="./icons/logo.svg" alt="logo" />
 
       <div class="menu">
-        <form class="search-container">
+        <form class="search-container" id="searchForm">
           <button type="submit" class="search-button">
-            <img src="../icons/search.svg" alt="search" />
+            <img src="./icons/search.svg" alt="search" />
           </button>
           <input
             type="text"
             placeholder="Search"
-            name="search"
+            name="value"
             class="search-input"
           />
         </form>
 
+        <% if (isLoggedIn) { %>
+        <p>Bem-vindo, usuário logado!</p>
+        <% } else { %>
         <nav>
           <ul>
-            <li><a href="#">Sign in</a></li>
-            <li><a href="#">Sign up</a></li>
+            <li><a href="/login">Sign in</a></li>
+            <li><a href="/register">Sign up</a></li>
           </ul>
         </nav>
+        <% } %>
       </div>
     </header>
+
+    <script src="./scripts/header.js"></script>
   </body>
 </html>

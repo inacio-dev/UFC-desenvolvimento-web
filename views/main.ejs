@@ -4,13 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UFC - Web</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
 
   <body>
     <%- include('components/Header') %>
 
     <main id="content"><%- content %></main>
-
-    <script src="./main.js"></script>
   </body>
 </html>

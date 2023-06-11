@@ -1,35 +1,31 @@
-const express     = require("express");
-const bodyParser  = require("body-parser");
-const ejs         = require("ejs");
-const path        = require("path");
-const fs          = require("fs");
+const express = require("express");
+const bodyParser = require("body-parser");
+const ejs = require("ejs");
+const path = require("path");
 const { pathToRegexp } = require("path-to-regexp");
+const session = require("express-session");
+const axios = require("axios");
 
-const app   = express();
+const app = express();
+
+app.use(
+  session({
+    secret: "ASDFGHJK",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 const routes = [
-  {
-    path: "/",
-    component: "pages/index",
-    data: {
-      imageData: [
-        { imageSrc: "/images/test-image.jpg", altText: "image 1" },
-        { imageSrc: "/images/test-image.jpg", altText: "image 2" },
-        { imageSrc: "/images/test-image.jpg", altText: "image 3" },
-        { imageSrc: "/images/test-image.jpg", altText: "image 1" },
-        { imageSrc: "/images/test-image.jpg", altText: "image 2" },
-        { imageSrc: "/images/test-image.jpg", altText: "image 3" },
-      ],
-    },
-  },
-  { path: "/categorias", component: "pages/categories" },
-  { path: "/busca", component: "pages/search" },
-  { path: "/publicar", component: "pages/publish" },
-  { path: "/contato"   , component: "contato" },
-  { path: "/perfil/:id", component: "pages/profile" },
-  { path: "/login", component: "login" },
-  { path: "/register", component: "register" },
-  { path: "/adm-login", component: "adm-login" },
+  { path: "/", component: "pages/index", data: { imageData: [] } },
+  { path: "/categories", component: "pages/categories", data: {} },
+  { path: "/search", component: "pages/search", data: {} },
+  { path: "/publicar", component: "pages/publish", data: {} },
+  { path: "/contato", component: "contato", data: {} },
+  { path: "/perfil/:id", component: "pages/profile", data: {} },
+  { path: "/login", component: "pages/login", data: {} },
+  { path: "/register", component: "pages/register", data: {} },
+  { path: "/adm-login", component: "pages/adm-login", data: {} },
 ];
 
 const routeMatchers = routes.map((route) => {
@@ -49,12 +45,72 @@ function renderComponent(componentPath, data, callback) {
   });
 }
 
+function loginProvider(req, res, next) {
+  const isLoggedIn = req.session.isLoggedIn || false;
+
+  routes.forEach((route) => {
+    route.data = route.data || {};
+    route.data.isLoggedIn = isLoggedIn;
+  });
+
+  next();
+}
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(loginProvider);
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static("public"));
 
+// --------------------------------------------------------------------------
+
+app.get("/data", (req, res) => {
+  const imageData = [
+    { imageSrc: "/images/test-image.jpg", altText: "image 1" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 1" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 1" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 1" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 1" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
+    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
+  ];
+
+  res.setHeader("Cache-Control", "no-cache");
+
+  res.json(imageData);
+});
+
+// --------------------------------------------------------------------------
+
+app.post("/ejs/updateImageData", (req, res) => {
+  const { imageData } = req.body;
+
+  routes.forEach((route) => {
+    if (route.data && route.data.hasOwnProperty("imageData")) {
+      route.data.imageData = imageData;
+    }
+  });
+
+  res.sendStatus(200);
+});
+
 app.get("*", (req, res) => {
+  const isLoggedIn = req.session.isLoggedIn || false;
+
   let match = null;
   for (const { route, pattern, keys } of routeMatchers) {
     const result = pattern.exec(req.path);
@@ -77,7 +133,7 @@ app.get("*", (req, res) => {
       route.component + ".ejs"
     );
     const queryParams = req.query;
-    const data = { ...params, ...queryParams, ...route.data };
+    const data = { ...params, ...queryParams, ...route.data, isLoggedIn };
 
     const isFileRequest = req.url.includes(".");
     const newData = isFileRequest ? undefined : data;
@@ -89,13 +145,21 @@ app.get("*", (req, res) => {
         let mainTemplatePath = path.join(__dirname, "views", "main.ejs");
 
         if (route.path === "/login") {
-          mainTemplatePath = path.join(__dirname, "views", "login.ejs");
+          mainTemplatePath = path.join(__dirname, "views", "pages/login.ejs");
         }
         if (route.path === "/register") {
-          mainTemplatePath = path.join(__dirname, "views", "register.ejs");
+          mainTemplatePath = path.join(
+            __dirname,
+            "views",
+            "pages/register.ejs"
+          );
         }
         if (route.path === "/adm-login") {
-          mainTemplatePath = path.join(__dirname, "views", "adm-login.ejs");
+          mainTemplatePath = path.join(
+            __dirname,
+            "views",
+            "pages/adm-login.ejs"
+          );
         }
 
         renderComponent(
@@ -103,6 +167,7 @@ app.get("*", (req, res) => {
           {
             content: renderedContent,
             data: newData,
+            isLoggedIn,
           },
           (err, mainContent) => {
             if (err) {
@@ -117,6 +182,11 @@ app.get("*", (req, res) => {
   } else {
     res.status(404).send("<h1>Página não encontrada</h1>");
   }
+});
+
+axios.interceptors.request.use((config) => {
+  config.withCredentials = true;
+  return config;
 });
 
 const port = process.env.PORT || 3000;
