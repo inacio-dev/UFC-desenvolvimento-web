@@ -1,5 +1,55 @@
 @import url("global.css");
 
+.profile-div {
+  width: 100%;
+  align-items: start;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 80px;
+  color: var(--slate-light-1);
+}
+
+.user-div {
+  background-color: var(--dark-purple);
+  width: 20%;
+  margin-left: 15%;
+  margin-right: 5%;
+  border-radius: 8px;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.details-div {
+  background-color: var(--dark-purple);
+  width: 50%;
+  margin-right: 15%;
+  border-radius: 8px;
+  align-items: start;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.image-user {
+  width: 100px;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
 main {
   display: flex;
   justify-items: center;
@@ -12,13 +62,8 @@ main {
   display: flex;
   align-items: center;
   margin-bottom: 50px;
-  /* top: 200%; */
 }
-.buttons label {
-  color: aliceblue;
-  font-size: x-large;
-  font-weight: 500;
-}
+
 .menu_b {
   display: flex;
   justify-items: center;
@@ -36,50 +81,24 @@ main {
 .menu_b:hover {
   background-color: rgba(167, 173, 198, 0.4);
 }
-.Type label {
-  padding-bottom: 50%;
-  font-size: x-large;
-  font-weight: 1900;
-  color: aliceblue;
-}
-/* .label {
-    
-    background-color: azure;
-    position: relative;
-    left: 0;
-    
-} */
+
 .grid-container {
-  padding-top: 2.5%;
-  padding-bottom: 2.5%;
   display: grid;
   justify-content: center;
   justify-items: center;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-
+  padding-bottom: 200px;
   gap: 30px;
 }
 
 .grid-item {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
   transition: all;
   transition-duration: 100ms;
-}
-
-.categorie-name {
-  color: var(--slate-light-1);
-  font-weight: bold;
-  margin-top: 20px;
-  font-size: larger;
-}
-
-.grid-image {
-  overflow: hidden;
   border-radius: 8px;
 }
 
@@ -96,7 +115,7 @@ main {
 
 @media screen and (min-width: 1024px) {
   main {
-    padding-top: 5%; /*150px;*/
+    padding-top: 150px;
   }
 
   .buttons {
@@ -106,14 +125,6 @@ main {
 
   .grid-container {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .grid-image {
-    width: 250px;
-    height: 300px;
-
-    /* width: 330px;
-    height: 396px; */
   }
 }
 
@@ -128,10 +139,5 @@ main {
 
   .grid-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .grid-image {
-    width: 150px;
-    height: 200px;
   }
 }

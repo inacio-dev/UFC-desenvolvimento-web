@@ -52,7 +52,7 @@ main {
   transition-duration: 100ms;
 }
 
-.categorie-name {
+.category-name {
   color: var(--slate-light-1);
   font-weight: bold;
   margin-top: 20px;
