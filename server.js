@@ -25,6 +25,9 @@ const routes = [
   { path: "/categorias", component: "pages/categories" },
   { path: "/contato", component: "contato" },
   { path: "/perfil/:id", component: "pages/profile" },
+  { path: "/login", component: "login" },
+  { path: "/register", component: "register" },
+  { path: "/adm-login", component: "adm-login" },
 ];
 
 const routeMatchers = routes.map((route) => {
@@ -32,6 +35,17 @@ const routeMatchers = routes.map((route) => {
   const pattern = pathToRegexp(route.path, keys);
   return { route, pattern, keys };
 });
+
+function renderComponent(componentPath, data, callback) {
+  ejs.renderFile(componentPath, data, (err, content) => {
+    if (err) {
+      console.error(err);
+      callback(err);
+    } else {
+      callback(null, content);
+    }
+  });
+}
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -66,15 +80,23 @@ app.get("*", (req, res) => {
     const isFileRequest = req.url.includes(".");
     const newData = isFileRequest ? undefined : data;
 
-    fs.readFile(componentPath, "utf8", (err, content) => {
+    renderComponent(componentPath, data, (err, renderedContent) => {
       if (err) {
-        console.error(err);
         res.status(500).send("<h1>Erro interno do servidor</h1>");
       } else {
-        const renderedContent = ejs.render(content, data);
-        const mainTemplatePath = path.join(__dirname, "views", "main.ejs");
+        let mainTemplatePath = path.join(__dirname, "views", "main.ejs");
 
-        ejs.renderFile(
+        if (route.path === "/login") {
+          mainTemplatePath = path.join(__dirname, "views", "login.ejs");
+        }
+        if (route.path === "/register") {
+          mainTemplatePath = path.join(__dirname, "views", "register.ejs");
+        }
+        if (route.path === "/adm-login") {
+          mainTemplatePath = path.join(__dirname, "views", "adm-login.ejs");
+        }
+
+        renderComponent(
           mainTemplatePath,
           {
             content: renderedContent,
@@ -82,7 +104,6 @@ app.get("*", (req, res) => {
           },
           (err, mainContent) => {
             if (err) {
-              console.error(err);
               res.status(500).send("<h1>Erro interno do servidor</h1>");
             } else {
               res.send(mainContent);
