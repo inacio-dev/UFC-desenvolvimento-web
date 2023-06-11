@@ -5,14 +5,7 @@
 
   <body>
     <main>
-      <div class="buttons">
-        <a href="/" class="menu_b">
-          <img src="../icons/rising.svg" alt="rising" />Rising
-        </a>
-        <a href="/categories" class="menu_b">
-          <img src="../icons/categories.svg" alt="rising" />Categories
-        </a>
-      </div>
+      <%- include('../components/CategoriesBtn') %>
 
       <div class="grid-container">
         <% for (var i = 0; i < imageData.length; i++) { %>
