@@ -1,0 +1,26 @@
+@import url("global.css");
+
+
+.buttons { 
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  
+  .menu_b {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 5px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(167, 173, 198, 0.15);
+    color: var(--slate-light-1);
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  
+  .menu_b:hover {
+    background-color: rgba(167, 173, 198, 0.4);
+  }
