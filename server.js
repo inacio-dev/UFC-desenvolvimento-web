@@ -18,11 +18,14 @@ app.use(
 
 const routes = [
   { path: "/", component: "pages/index", data: { imageData: [] } },
-  { path: "/categories", component: "pages/categories", data: {} },
+  {
+    path: "/categories",
+    component: "pages/categories",
+    data: { categoriesData: [] },
+  },
   { path: "/search", component: "pages/search", data: {} },
-  { path: "/publicar", component: "pages/publish", data: {} },
-  { path: "/contato", component: "contato", data: {} },
-  { path: "/perfil/:id", component: "pages/profile", data: {} },
+  { path: "/publish", component: "pages/publish", data: {} },
+  { path: "/profile/:id", component: "pages/profile", data: {} },
   { path: "/login", component: "pages/login", data: {} },
   { path: "/register", component: "pages/register", data: {} },
   { path: "/adm-login", component: "pages/adm-login", data: {} },
@@ -47,10 +50,14 @@ function renderComponent(componentPath, data, callback) {
 
 function loginProvider(req, res, next) {
   const isLoggedIn = req.session.isLoggedIn || false;
+  const refreshToken = req.session.refreshToken || null;
+  const accessToken = req.session.accessToken || null;
 
   routes.forEach((route) => {
     route.data = route.data || {};
     route.data.isLoggedIn = isLoggedIn;
+    route.data.refreshToken = refreshToken;
+    route.data.accessToken = accessToken;
   });
 
   next();
@@ -79,19 +86,35 @@ app.get("/data", (req, res) => {
     { imageSrc: "/images/test-image.jpg", altText: "image 3" },
     { imageSrc: "/images/test-image.jpg", altText: "image 2" },
     { imageSrc: "/images/test-image.jpg", altText: "image 3" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 1" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 1" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 2" },
-    { imageSrc: "/images/test-image.jpg", altText: "image 3" },
   ];
 
   res.setHeader("Cache-Control", "no-cache");
 
   res.json(imageData);
+});
+
+app.get("/data/categories", (req, res) => {
+  const data = [
+    {
+      imageSrc: "/images/test-image.jpg",
+      altText: "image 1",
+      name: "Wallpaper",
+    },
+    {
+      imageSrc: "/images/test-image.jpg",
+      altText: "image 1",
+      name: "Titles",
+    },
+    {
+      imageSrc: "/images/test-image.jpg",
+      altText: "image 1",
+      name: "Designs",
+    },
+  ];
+
+  res.setHeader("Cache-Control", "no-cache");
+
+  res.json(data);
 });
 
 // --------------------------------------------------------------------------
@@ -108,8 +131,23 @@ app.post("/ejs/updateImageData", (req, res) => {
   res.sendStatus(200);
 });
 
+app.post("/ejs/updateCategoriesData", (req, res) => {
+  const { categoriesData } = req.body;
+
+  routes.forEach((route) => {
+    if (route.data && route.data.hasOwnProperty("categoriesData")) {
+      route.data.categoriesData = categoriesData;
+    }
+  });
+
+  res.sendStatus(200);
+});
+
 app.get("*", (req, res) => {
-  const isLoggedIn = req.session.isLoggedIn || false;
+  const isLoggedIn = true;
+  const refreshToken = req.session.refreshToken || null;
+  const accessToken = req.session.accessToken || null;
+  const id = 1;
 
   let match = null;
   for (const { route, pattern, keys } of routeMatchers) {
@@ -133,7 +171,15 @@ app.get("*", (req, res) => {
       route.component + ".ejs"
     );
     const queryParams = req.query;
-    const data = { ...params, ...queryParams, ...route.data, isLoggedIn };
+    const data = {
+      ...params,
+      ...queryParams,
+      ...route.data,
+      isLoggedIn,
+      refreshToken,
+      accessToken,
+      id,
+    };
 
     const isFileRequest = req.url.includes(".");
     const newData = isFileRequest ? undefined : data;
@@ -161,13 +207,21 @@ app.get("*", (req, res) => {
             "pages/adm-login.ejs"
           );
         }
+        if (route.path === "/publish") {
+          if (!isLoggedIn) {
+            return res.redirect("/");
+          }
+        }
 
         renderComponent(
           mainTemplatePath,
           {
             content: renderedContent,
             data: newData,
+            refreshToken,
+            accessToken,
             isLoggedIn,
+            id,
           },
           (err, mainContent) => {
             if (err) {

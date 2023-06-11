@@ -1,16 +1,16 @@
 <html lang="en">
   <head>
-    <link rel="stylesheet" type="text/css" href="./styles/header.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/header.css" />
   </head>
 
   <body>
     <header>
-      <img class="logo" src="./icons/logo.svg" alt="logo" />
+      <img class="logo" src="../icons/logo.svg" alt="logo" />
 
       <div class="menu">
         <form class="search-container" id="searchForm">
           <button type="submit" class="search-button">
-            <img src="./icons/search.svg" alt="search" />
+            <img src="../icons/search.svg" alt="search" />
           </button>
           <input
             type="text"
@@ -21,10 +21,18 @@
         </form>
 
         <% if (isLoggedIn) { %>
-        <p>Bem-vindo, usuário logado!</p>
+        <nav>
+          <ul>
+            <li><a href="/">Explore</a></li>
+            <li><a href="/publish">Publish</a></li>
+            <li><a href="/profile/<%= id %>">My Profile</a></li>
+            <li><a href="/">Exit</a></li>
+          </ul>
+        </nav>
         <% } else { %>
         <nav>
           <ul>
+            <li><a href="/">Explore</a></li>
             <li><a href="/login">Sign in</a></li>
             <li><a href="/register">Sign up</a></li>
           </ul>
@@ -33,6 +41,6 @@
       </div>
     </header>
 
-    <script src="./scripts/header.js"></script>
+    <script src="../scripts/header.js"></script>
   </body>
 </html>

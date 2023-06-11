@@ -8,25 +8,21 @@
       <%- include('../components/CategoriesBtn') %>
 
       <div class="grid-container">
+        <% for (var i = 0; i < categoriesData.length; i++) { %>
         <div class="grid-item">
           <div class="grid-image">
-            <img src="../images/test-image.jpg" alt="image" class="image" />
+            <img
+              src="<%= categoriesData[i].imageSrc %>"
+              alt="<%= categoriesData[i].altText %>"
+              class="image"
+            />
           </div>
-          <span class="categorie-name">Wallpapers</span>
+          <span class="category-name"><%= categoriesData[i].name %></span>
         </div>
-        <div class="grid-item">
-          <div class="grid-image">
-            <img src="../images/test-image.jpg" alt="image" class="image" />
-          </div>
-          <span class="categorie-name">Photos</span>
-        </div>
-        <div class="grid-item">
-          <div class="grid-image">
-            <img src="../images/test-image.jpg" alt="image" class="image" />
-          </div>
-          <span class="categorie-name">Design</span>
-        </div>
+        <% } %>
       </div>
     </main>
+
+    <script src="./scripts/categories.js"></script>
   </body>
 </html>

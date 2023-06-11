@@ -1,13 +1,64 @@
 <html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="../styles/profile.css" />
+  </head>
+
   <body>
     <main>
-      <h1>Página de perfil</h1>
-      <p>Seu ID é: <span><%= id %></span></p>
-      <form action="/search" method="post">
-        <label for="query">Buscar:</label>
-        <input type="text" id="query" name="query" required />
-        <button type="submit">Pesquisar</button>
-      </form>
+      <div class="buttons">
+        <button class="menu_b">
+          <img src="../images/edit.svg" alt="rising" />Edit my profile
+        </button>
+        <button class="menu_b">
+          <img src="../images/cash.svg" alt="rising" />Get Cash
+        </button>
+      </div>
+
+      <div class="profile-div">
+        <div class="user-div">
+          <div class="image-user">
+            <img src="../images/test-image.jpg" alt="image" class="image" />
+          </div>
+
+          <span class="username">#MyUserName</span>
+        </div>
+
+        <div class="details-div">
+          <span>R$ 5,95</span>
+          <p>
+            Description lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sed vitae viverra felis. Vestibulum vitae felis urna. Mauris id
+            sollicitudin nisi. Nulla varius arcu nisi.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+        <div class="grid-item">
+          <img src="../images/test-image.jpg" alt="image" class="image" />
+        </div>
+      </div>
     </main>
   </body>
 </html>
