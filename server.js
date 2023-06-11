@@ -1,11 +1,11 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const path = require("path");
-const fs = require("fs");
+const express     = require("express");
+const bodyParser  = require("body-parser");
+const ejs         = require("ejs");
+const path        = require("path");
+const fs          = require("fs");
 const { pathToRegexp } = require("path-to-regexp");
 
-const app = express();
+const app   = express();
 
 const routes = [
   {
@@ -23,7 +23,9 @@ const routes = [
     },
   },
   { path: "/categorias", component: "pages/categories" },
-  { path: "/contato", component: "contato" },
+  { path: "/busca", component: "pages/search" },
+  { path: "/publicar", component: "pages/publish" },
+  { path: "/contato"   , component: "contato" },
   { path: "/perfil/:id", component: "pages/profile" },
 ];
 
