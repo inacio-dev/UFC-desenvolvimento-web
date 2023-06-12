@@ -184,7 +184,9 @@ app.post("/ejs/updateProfileData", (req, res) => {
 
 app.get("*", (req, res) => {
   const user = {
-    isLoggedIn: true,
+    isLoggedIn: 
+    // false, 
+    true,
     id: 1,
     type: 0,
   };

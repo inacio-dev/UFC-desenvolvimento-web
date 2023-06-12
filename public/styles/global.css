@@ -32,6 +32,10 @@
   --slate-dark-12: #ecedee;
 }
 
+html.light:root{
+
+  --slate-dark-3 : var(--slate-light-11);
+}
 html,
 body {
   margin: 0;
