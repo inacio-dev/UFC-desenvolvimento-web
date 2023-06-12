@@ -35,6 +35,9 @@
   --button-color-press :rgba(167, 173, 198, 0.4);
 
   --font-size : 15px;
+  --font-user-name-size : 32px ;
+  /* px; */
+  --header-font-size : medium ; 
 }
 
 html.light:root{
@@ -43,17 +46,25 @@ html.light:root{
   --slate-dark-3 : var(--slate-light-11);
   --button-color : var(--slate-dark-7) ;
 }
-size_btn.A1:root{
+html.A1:root{
   --font-size : 25px;
+  --font-user-name-size : 42px;
+  --header-font-size : large;
 }
 html.A2:root{
   --font-size : 35px;
+  --font-user-name-size : 52px;
+  --header-font-size : larger;
 }
 html.A3:root{
   --font-size : 45px;
+  --font-user-name-size : 62px;
+  --header-font-size : x-large ;
 }
 html.A4:root{
   --font-size : 55px;
+  --font-user-name-size : 72px;
+  --header-font-size : xx-large;
 }
 
 html,

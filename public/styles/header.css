@@ -110,6 +110,9 @@ nav ul {
   margin: 0;
   padding: 0;
   padding-left: 20px;
+
+  font-size: var(--header-font-size) ;
+  /* xx-large; */
 }
 
 nav ul li {
