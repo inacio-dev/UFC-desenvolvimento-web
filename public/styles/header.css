@@ -40,7 +40,16 @@ header {
   transform: scale(1.4);
 
 }
-
+.A-plus{
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+.A-minus{
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
 .label .ball {
   background-color: var(--slate-light-8);
   border-radius: 50%;

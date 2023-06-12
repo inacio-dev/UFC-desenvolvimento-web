@@ -30,12 +30,32 @@
   --slate-dark-10: #787f85;
   --slate-dark-11: #9ba1a6;
   --slate-dark-12: #ecedee;
+
+  --button-color : rgba(167, 173, 198, 0.15);
+  --button-color-press :rgba(167, 173, 198, 0.4);
+
+  --font-size : 15px;
 }
 
 html.light:root{
 
+  /* --slate-light-7: var(--slate-dark-7) ; */
   --slate-dark-3 : var(--slate-light-11);
+  --button-color : var(--slate-dark-7) ;
 }
+size_btn.A1:root{
+  --font-size : 25px;
+}
+html.A2:root{
+  --font-size : 35px;
+}
+html.A3:root{
+  --font-size : 45px;
+}
+html.A4:root{
+  --font-size : 55px;
+}
+
 html,
 body {
   margin: 0;

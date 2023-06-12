@@ -15,13 +15,15 @@
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    background-color: rgba(167, 173, 198, 0.15);
+    background-color: var(--button-color) ;
     color: var(--slate-light-1);
     font-weight: bold;
+    font-size : var(--font-size) ;
+    /* 15px; */
     margin-right: 20px;
     text-decoration-line: none;
   }
   
   .menu_b:hover {
-    background-color: rgba(167, 173, 198, 0.4);
+    background-color: var(--button-color-press) ;
   }
