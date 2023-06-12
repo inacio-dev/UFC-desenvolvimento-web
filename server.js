@@ -8,24 +8,22 @@ const axios = require("axios");
 
 const app = express();
 
-app.use(
-  session({
-    secret: "ASDFGHJK",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
 const routes = [
-  { path: "/", component: "pages/index", data: { imageData: [] } },
+  { path: "/", component: "pages/index", data: { imageData: {} } },
   {
     path: "/categories",
     component: "pages/categories",
-    data: { categoriesData: [] },
+    data: { categoriesData: {} },
   },
   { path: "/search", component: "pages/search", data: {} },
   { path: "/publish", component: "pages/publish", data: {} },
-  { path: "/profile/:id", component: "pages/profile", data: {} },
+  {
+    path: "/profile/:id",
+    component: "pages/profile",
+    data: {
+      profileData: {},
+    },
+  },
   { path: "/login", component: "pages/login", data: {} },
   { path: "/register", component: "pages/register", data: {} },
   { path: "/adm-login", component: "pages/adm-login", data: {} },
@@ -48,23 +46,8 @@ function renderComponent(componentPath, data, callback) {
   });
 }
 
-function loginProvider(req, res, next) {
-  const isLoggedIn = req.session.isLoggedIn || false;
-  const refreshToken = req.session.refreshToken || null;
-  const accessToken = req.session.accessToken || null;
-
-  routes.forEach((route) => {
-    route.data = route.data || {};
-    route.data.isLoggedIn = isLoggedIn;
-    route.data.refreshToken = refreshToken;
-    route.data.accessToken = accessToken;
-  });
-
-  next();
-}
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(loginProvider);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
@@ -117,6 +100,50 @@ app.get("/data/categories", (req, res) => {
   res.json(data);
 });
 
+app.get("/data/profile", (req, res) => {
+  const type = req.headers["type"];
+
+  let data = {};
+
+  if (type === "0") {
+    data = {
+      username: "Usuário Padrão",
+      description:
+        "Description lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed vitae viverra felis. Vestibulum vitae felis urna. Mauris id sollicitudin nisi. Nulla varius arcu nisi.",
+      images: [
+        {
+          imageSrc: "/images/test-image.jpg",
+          altText: "image 1",
+        },
+        {
+          imageSrc: "/images/test-image.jpg",
+          altText: "image 1",
+        },
+        {
+          imageSrc: "/images/test-image.jpg",
+          altText: "image 1",
+        },
+      ],
+    };
+  } else if (type === "1") {
+    data = {
+      username: "Empresa",
+      description:
+        "Description lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed vitae viverra felis. Vestibulum vitae felis urna. Mauris id sollicitudin nisi. Nulla varius arcu nisi.",
+      images: [
+        {
+          imageSrc: "/images/test-image.jpg",
+          altText: "image 1",
+        },
+      ],
+    };
+  }
+
+  res.setHeader("Cache-Control", "no-cache");
+
+  res.json(data);
+});
+
 // --------------------------------------------------------------------------
 
 app.post("/ejs/updateImageData", (req, res) => {
@@ -143,11 +170,24 @@ app.post("/ejs/updateCategoriesData", (req, res) => {
   res.sendStatus(200);
 });
 
+app.post("/ejs/updateProfileData", (req, res) => {
+  const { profileData } = req.body;
+
+  routes.forEach((route) => {
+    if (route.data && route.data.hasOwnProperty("profileData")) {
+      route.data.profileData = profileData;
+    }
+  });
+
+  res.sendStatus(200);
+});
+
 app.get("*", (req, res) => {
-  const isLoggedIn = true;
-  const refreshToken = req.session.refreshToken || null;
-  const accessToken = req.session.accessToken || null;
-  const id = 1;
+  const user = {
+    isLoggedIn: true,
+    id: 1,
+    type: 0,
+  };
 
   let match = null;
   for (const { route, pattern, keys } of routeMatchers) {
@@ -175,10 +215,7 @@ app.get("*", (req, res) => {
       ...params,
       ...queryParams,
       ...route.data,
-      isLoggedIn,
-      refreshToken,
-      accessToken,
-      id,
+      user,
     };
 
     const isFileRequest = req.url.includes(".");
@@ -207,8 +244,9 @@ app.get("*", (req, res) => {
             "pages/adm-login.ejs"
           );
         }
+
         if (route.path === "/publish") {
-          if (!isLoggedIn) {
+          if (!user.isLoggedIn || user.type !== 0) {
             return res.redirect("/");
           }
         }
@@ -218,10 +256,7 @@ app.get("*", (req, res) => {
           {
             content: renderedContent,
             data: newData,
-            refreshToken,
-            accessToken,
-            isLoggedIn,
-            id,
+            user,
           },
           (err, mainContent) => {
             if (err) {
