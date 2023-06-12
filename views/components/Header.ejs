@@ -20,13 +20,15 @@
           />
         </form>
 
-        <% if (isLoggedIn) { %>
+        <% if (user.isLoggedIn) { %>
         <nav>
           <ul>
             <li><a href="/">Explore</a></li>
+            <% if (user.type === 0) { %>
             <li><a href="/publish">Publish</a></li>
-            <li><a href="/profile/<%= id %>">My Profile</a></li>
-            <li><a href="/">Exit</a></li>
+            <% } %>
+            <li><a href="/profile/<%= user.id %>">My Profile</a></li>
+            <li><a href="#">Exit</a></li>
           </ul>
         </nav>
         <% } else { %>

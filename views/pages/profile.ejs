@@ -7,10 +7,7 @@
     <main>
       <div class="buttons">
         <button class="menu_b">
-          <img src="../images/edit.svg" alt="rising" />Edit my profile
-        </button>
-        <button class="menu_b">
-          <img src="../images/cash.svg" alt="rising" />Get Cash
+          <img src="../icons/edit.svg" alt="rising" />Edit my profile
         </button>
       </div>
 
@@ -20,45 +17,34 @@
             <img src="../images/test-image.jpg" alt="image" class="image" />
           </div>
 
-          <span class="username">#MyUserName</span>
+          <input type="hidden" id="user-id" data-user-id="<%= user.id %>" />
+          <input
+            type="hidden"
+            id="user-type"
+            data-user-type="<%= user.type %>"
+          />
+          <span class="username"><%= profileData.username %></span>
         </div>
 
         <div class="details-div">
-          <span>R$ 5,95</span>
-          <p>
-            Description lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed vitae viverra felis. Vestibulum vitae felis urna. Mauris id
-            sollicitudin nisi. Nulla varius arcu nisi.
-          </p>
+          <p><%= profileData.description %></p>
         </div>
       </div>
 
       <div class="grid-container">
+        <% if (profileData.images && Array.isArray(profileData.images)) { %> <%
+        for (var i = 0; i < profileData.images.length; i++) { %>
         <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
+          <img
+            src="<%= profileData.images[i].imageSrc %>"
+            alt="<%= profileData.images[i].altText %>"
+            class="image"
+          />
         </div>
-        <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
-        </div>
-        <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
-        </div>
-        <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
-        </div>
-        <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
-        </div>
-        <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
-        </div>
-        <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
-        </div>
-        <div class="grid-item">
-          <img src="../images/test-image.jpg" alt="image" class="image" />
-        </div>
+        <% } %> <% } %>
       </div>
     </main>
+
+    <script src="../scripts/profile.js"></script>
   </body>
 </html>
