@@ -1,73 +1,81 @@
 <html lang="en">
-<head>
+  <head>
     <link rel="stylesheet" type="text/css" href="../styles/header.css" />
-</head>
+  </head>
 
-<body>
-    
+  <body>
     <header>
-        
-        <img class="logo" src="../icons/logo.svg" alt="logo" />
+      <img class="logo" src="../icons/logo.svg" alt="logo" />
 
-        <div class="menu">
-            <form class="search-container" id="searchForm">
-                <button type="submit" class="search-button">
-                    <img src="../icons/search.svg" alt="search" />
-                </button>
-                
-                <input
-                    type="text"
-                    placeholder="Search"
-                    name="value"
-                    class="search-input"
-                />
+      <div class="menu">
+        <form class="search-container" id="searchForm">
+          <button type="submit" class="search-button">
+            <img src="../icons/search.svg" alt="search" />
+          </button>
 
-            </form>
+          <input
+            type="text"
+            placeholder="Search"
+            name="value"
+            class="search-input"
+          />
+        </form>
 
-            <% if (user.isLoggedIn) { %>
-            <nav>
-                
-              <ul>
-                    <li><a href="/">Explore</a></li>
-                    <% if (user.type === 0) { %>
-                    <li><a href="/publish">Publish</a></li>
-                    <% } %>
-                    <li><a href="/profile/<%= user.id %>">My Profile</a></li>
-                    <li><a href="#">Exit</a></li>
-                </ul>
-
-            </nav>
-            <% } else { %>
-            <nav>
-
-                <ul>
-                    <li><a href="/">Explore</a></li>
-                    <li><a href="/login">Sign in</a></li>
-                    <li><a href="/register">Sign up</a></li>
-                </ul>
-
-            </nav>
+        <% if (user.isLoggedIn) { %>
+        <nav>
+          <ul>
+            <li><a href="/">Explore</a></li>
+            <% if (user.type === 0) { %>
+            <li><a href="/publish">Publish</a></li>
             <% } %>
+            <li><a href="/profile/<%= user.id %>">My Profile</a></li>
+            <li>
+              <form
+                id="formLogout"
+                method="POST"
+                action="/request/logout"
+                class="exit-form"
+              >
+                <button type="submit">Exit</button>
+              </form>
+            </li>
+          </ul>
+        </nav>
+        <% } else { %>
+        <nav>
+          <ul>
+            <li><a href="/">Explore</a></li>
+            <li><a href="/login">Sign in</a></li>
+            <li><a href="/register">Sign up</a></li>
+          </ul>
+        </nav>
+        <% } %>
 
-            <div class="size_btn" id="size_btn">
-                <button class="A-minus" id="A-minus" onclick="diminuir()"><label for="A-minus">A-</label></button>
-                <button class="A-plus" id="A-plus" onclick="aumentar()"><label for="A-plus">A+</label></button>
-            </div>
-            <div class = "dark_light">
-                <input type="checkbox" class="checkbox" id="chk">
-                <label for="chk" class="label">
-                    <i class="fas fa-sun"></i>
-                    <i class="fas fa-moon"></i>
-                    <!-- <img src="../images/sol.png" alt="sol" class="sol_img">
-                    <img src="../images/lua.png" alt="lua" class="lua_img"> -->
-                    <div class="ball"></div>
-                </label>
-            </div>
+        <div class="size_btn" id="size_btn">
+          <button class="A-minus" id="A-minus" onclick="diminuir()">
+            <label for="A-minus">A-</label>
+          </button>
+          <button class="A-plus" id="A-plus" onclick="aumentar()">
+            <label for="A-plus">A+</label>
+          </button>
         </div>
-        
+        <div class="dark_light">
+          <input type="checkbox" class="checkbox" id="chk" />
+          <label for="chk" class="label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <!-- <img src="../images/sol.png" alt="sol" class="sol_img">
+                    <img src="../images/lua.png" alt="lua" class="lua_img"> -->
+            <div class="ball"></div>
+          </label>
+        </div>
+      </div>
     </header>
-    
+
     <script src="../scripts/header.js"></script>
-    <script src="https://kit.fontawesome.com/998c60ef77.js" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://kit.fontawesome.com/998c60ef77.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

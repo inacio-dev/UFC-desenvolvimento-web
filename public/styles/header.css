@@ -1,6 +1,5 @@
 @import url("global.css");
 
-
 header {
   background-color: var(--dark-purple);
   color: var(--slate-light-1);
@@ -12,17 +11,35 @@ header {
   position: fixed;
   width: 100%;
   margin: 0;
-  padding: 20px 0 ;
+  padding: 20px 0;
 }
-.dark_light{
-    margin-left: 2vw; 
-    position: absolute; 
-    right: 3%;
+.dark_light {
+  margin-left: 2vw;
+  position: absolute;
+  right: 3%;
 }
 
 .checkbox {
   opacity: 0;
   position: absolute;
+}
+
+.exit-form button {
+  background-color: transparent;
+  border: none;
+  color: var(--slate-light-1);
+  font-size: var(--header-font-size);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0; /* Adicione este estilo para remover o padding padrão do botão */
+}
+
+.exit-form button:hover {
+  color: var(--slate-light-3);
+}
+
+.exit-form button:focus {
+  outline: none;
 }
 
 .label {
@@ -38,14 +55,13 @@ header {
   height: 26px;
   width: 50px;
   transform: scale(1.4);
-
 }
-.A-plus{
+.A-plus {
   border-radius: 50%;
   height: 30px;
   width: 30px;
 }
-.A-minus{
+.A-minus {
   border-radius: 50%;
   height: 30px;
   width: 30px;
@@ -111,7 +127,7 @@ nav ul {
   padding: 0;
   padding-left: 20px;
 
-  font-size: var(--header-font-size) ;
+  font-size: var(--header-font-size);
   /* xx-large; */
 }
 

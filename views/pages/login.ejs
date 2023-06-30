@@ -6,6 +6,7 @@
     <title>UFC - Web</title>
     <link rel="stylesheet" type="text/css" href="./styles/login.css" />
     <link rel="stylesheet" type="text/css" href="./styles/login-box.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
 
   <body>
@@ -21,7 +22,7 @@
               <a href="/register">Sign up for free</a>
             </nav>
 
-            <form action="#">
+            <form action="/request/user" method="POST">
               <div class="input-box">
                 <input type="text" required />
                 <label>Email</label>
@@ -38,5 +39,7 @@
       </div>
       <img class="background_img" src="./images/background-login.png" />
     </main>
+
+    <script src="../scripts/login.js"></script>
   </body>
 </html>

@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const path = require("path");
 const { pathToRegexp } = require("path-to-regexp");
-const session = require("express-session");
 const axios = require("axios");
 
 const app = express();
@@ -76,7 +75,41 @@ app.get("/data", (req, res) => {
   res.json(imageData);
 });
 
-app.get("/data/categories", (req, res) => {
+/* app.get("/request/user", (req, res) => {
+  const user = {};
+
+  res.setHeader("Cache-Control", "no-cache");
+
+  res.json(user);
+});
+ */
+app.post("/request/user", (req, res) => {
+  const user = {
+    isLoggedIn: true,
+    id: 1,
+    type: 0,
+    token: "asdfasfjkbbchasd",
+  };
+
+  res.setHeader("Cache-Control", "no-cache");
+
+  res.json(user);
+});
+
+app.post("/request/logout", (req, res) => {
+  const user = {
+    isLoggedIn: false,
+    id: 0,
+    type: 0,
+    token: "",
+  };
+
+  res.setHeader("Cache-Control", "no-cache");
+
+  res.json(user);
+});
+
+/* app.get("/data/categories", (req, res) => {
   const data = [
     {
       imageSrc: "/images/test-image.jpg",
@@ -142,54 +175,12 @@ app.get("/data/profile", (req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 
   res.json(data);
-});
+}); */
 
 // --------------------------------------------------------------------------
 
-app.post("/ejs/updateImageData", (req, res) => {
-  const { imageData } = req.body;
-
-  routes.forEach((route) => {
-    if (route.data && route.data.hasOwnProperty("imageData")) {
-      route.data.imageData = imageData;
-    }
-  });
-
-  res.sendStatus(200);
-});
-
-app.post("/ejs/updateCategoriesData", (req, res) => {
-  const { categoriesData } = req.body;
-
-  routes.forEach((route) => {
-    if (route.data && route.data.hasOwnProperty("categoriesData")) {
-      route.data.categoriesData = categoriesData;
-    }
-  });
-
-  res.sendStatus(200);
-});
-
-app.post("/ejs/updateProfileData", (req, res) => {
-  const { profileData } = req.body;
-
-  routes.forEach((route) => {
-    if (route.data && route.data.hasOwnProperty("profileData")) {
-      route.data.profileData = profileData;
-    }
-  });
-
-  res.sendStatus(200);
-});
-
 app.get("*", (req, res) => {
-  const user = {
-    isLoggedIn: 
-    // false, 
-    true,
-    id: 1,
-    type: 0,
-  };
+  const user = {};
 
   let match = null;
   for (const { route, pattern, keys } of routeMatchers) {
@@ -247,11 +238,11 @@ app.get("*", (req, res) => {
           );
         }
 
-        if (route.path === "/publish") {
+        /* if (route.path === "/publish") {
           if (!user.isLoggedIn || user.type !== 0) {
             return res.redirect("/");
           }
-        }
+        } */
 
         renderComponent(
           mainTemplatePath,
