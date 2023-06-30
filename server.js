@@ -8,7 +8,11 @@ const axios = require("axios");
 const app = express();
 
 const routes = [
-  { path: "/", component: "pages/index", data: { imageData: {} } },
+  {
+    path: "/",
+    component: "pages/index",
+    data: { imageData: {}, currentPage: 0, totalPages: 0 },
+  },
   {
     path: "/categories",
     component: "pages/categories",
@@ -120,17 +124,44 @@ app.get("/data", (req, res) => {
         "https://img.freepik.com/free-photo/foamy-beer-gold-pint-glass-generative-ai_188544-12316.jpg?w=826&t=st=1688154574~exp=1688155174~hmac=69ac088325ca99aeb96d887bcb0605709c2f2cda727a1fbf889757c04d249737",
       altText: "image 3",
     },
+    {
+      imageSrc:
+        "https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg?w=1380&t=st=1688154551~exp=1688155151~hmac=199bead03c937254d8e1b5343c004b50f15057767339cddbd1a28f98579e317a",
+      altText: "image 1",
+    },
+    {
+      imageSrc:
+        "https://img.freepik.com/free-photo/dentist-doing-check-up-patient_23-2149206225.jpg?w=1380&t=st=1688154556~exp=1688155156~hmac=832697f31d328e465624c98bf24e954ba16240e83da3106d32e30784396f41a0",
+      altText: "image 2",
+    },
+    {
+      imageSrc:
+        "https://img.freepik.com/free-photo/smiley-woman-showing-sticker-arm-after-getting-vaccine_23-2149014463.jpg?w=740&t=st=1688154562~exp=1688155162~hmac=5c67a3ed1250837dcb60c735968f8133197c9663f1edebef7bea41f1fbba17e6",
+      altText: "image 3",
+    },
+    {
+      imageSrc:
+        "https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-54587.jpg?w=826&t=st=1688154569~exp=1688155169~hmac=266e7f4706b3b40a04f90d378c7d6ac6e97a85ab03ef960599e970859e2fe63c",
+      altText: "image 2",
+    },
+    {
+      imageSrc:
+        "https://img.freepik.com/free-photo/foamy-beer-gold-pint-glass-generative-ai_188544-12316.jpg?w=826&t=st=1688154574~exp=1688155174~hmac=69ac088325ca99aeb96d887bcb0605709c2f2cda727a1fbf889757c04d249737",
+      altText: "image 3",
+    },
   ];
 
-  const imagesPerPage = 8; // Número de imagens por página
-  const currentPage = req.query.pag || 1; // Página atual (padrão: 1)
+  const imagesPerPage = 8; // Number of images per page
+  const totalImages = imageData.length;
+  const totalPages = Math.ceil(totalImages / imagesPerPage);
+  const currentPage = req.query.pag || 1; // Current page (default: 1)
   const startIndex = (currentPage - 1) * imagesPerPage;
   const endIndex = startIndex + imagesPerPage;
 
   const images = imageData.slice(startIndex, endIndex);
 
   res.setHeader("Cache-Control", "no-cache");
-  res.json(images);
+  res.json({ images, totalPages, currentPage });
 });
 
 app.post("/request/user", (req, res) => {
