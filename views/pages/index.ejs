@@ -7,6 +7,13 @@
     <main>
       <%- include('../components/CategoriesBtn') %>
 
+      <div class="pagination">
+        <button onclick="changePage(1)">1</button>
+        <button onclick="changePage(2)">2</button>
+        <button onclick="changePage(3)">3</button>
+        <!-- Adicione os botões das páginas conforme necessário -->
+      </div>
+
       <div class="grid-container">
         <% if (imageData && Array.isArray(imageData)) { %> <% for (var i = 0; i
         < imageData.length; i++) { %>

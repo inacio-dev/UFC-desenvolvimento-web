@@ -1,17 +1,3 @@
-function fetchDataAndRender() {
-  axios
-    .get("http://localhost:3000/data")
-    .then(function (response) {
-      var imageData = response.data;
-      console.log(imageData);
-      localStorage.setItem("imageData", JSON.stringify(imageData));
-      renderPage();
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-}
-
 function renderPage() {
   var imageData = JSON.parse(localStorage.getItem("imageData"));
   if (imageData && Array.isArray(imageData)) {
@@ -31,6 +17,33 @@ function renderPage() {
       gridContainer.appendChild(gridItem);
     }
   }
+}
+
+function fetchDataAndRender() {
+  axios
+    .get("http://localhost:3000/data")
+    .then(function (response) {
+      var imageData = response.data;
+      console.log(imageData);
+      localStorage.setItem("imageData", JSON.stringify(imageData));
+      renderPage();
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
+
+function changePage(pageNumber) {
+  axios
+    .get(`http://localhost:3000/data?pag=${pageNumber}`)
+    .then(function (response) {
+      var imageData = response.data;
+      localStorage.setItem("imageData", JSON.stringify(imageData));
+      renderPage();
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function () {

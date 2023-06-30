@@ -32,6 +32,24 @@ main {
   background-color: rgba(167, 173, 198, 0.4);
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: var(--slate-light-1);
+  color: var(--slate-dark-3);
+}
+
 .grid-container {
   display: grid;
   justify-content: center;
