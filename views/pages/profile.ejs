@@ -4,46 +4,95 @@
   </head>
 
   <body>
-    <main>
-      <div class="buttons">
-        <button class="menu_b">
-          <img src="../icons/edit.svg" alt="rising" />Edit my profile
+    <div class="container">
+      <div class="buttons-container">
+        <button class="btn">
+          <img src="../icons/edit.svg" alt="rising" />
+          Edit my profile
+        </button>
+        <button class="btn">
+          <img src="../icons/edit.svg" alt="rising" />
+          Get cash
         </button>
       </div>
 
-      <div class="profile-div">
-        <div class="user-div">
-          <div class="image-user">
-            <img src="../images/test-image.jpg" alt="image" class="image" />
-          </div>
-
-          <input type="hidden" id="user-id" data-user-id="<%= user.id %>" />
-          <input
-            type="hidden"
-            id="user-type"
-            data-user-type="<%= user.type %>"
+      <div class="profile-cards">
+        <div class="profile-card profile-card-left">
+          <img
+            class="profile-image"
+            src="https://img.freepik.com/free-photo/smiling-beautiful-woman-her-handsome-boyfriend-happy-cheerful-multiracial-family-having-tender-moments-grey_158538-18957.jpg?w=1380&t=st=1688154457~exp=1688155057~hmac=44e2bd4cab9e64a53a706592d049c4200894de63d31f3142a9096d0ded579a81"
           />
-          <span class="username"><%= profileData.username %></span>
+          <p>#UserNumberOne</p>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <p>50</p>
+              <p class="profile-stat-label">Images</p>
+            </div>
+            <div class="profile-stat">
+              <p>50</p>
+              <p class="profile-stat-label">Follows</p>
+            </div>
+            <div class="profile-stat">
+              <p>50</p>
+              <p class="profile-stat-label">Likes</p>
+            </div>
+          </div>
         </div>
-
-        <div class="details-div">
-          <p><%= profileData.description %></p>
+        <div class="profile-card">
+          <div class="profile-card-right">
+            <p class="price">R$ 5,95</p>
+            <p class="description">
+              Description lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Sed vitae viverra felis. Vestibulum vitae felis urna. Mauris
+              id sollicitudin nisi. Nulla varius arcu nisi.
+            </p>
+            <div class="profile-socials">
+              <div class="social-column">
+                <div class="social">
+                  <img src="facebook.svg" />
+                  <p>Facebook</p>
+                </div>
+                <div class="social">
+                  <img src="instagram.svg" />
+                  <p>Instagram</p>
+                </div>
+                <div class="social">
+                  <img src="email.svg" />
+                  <p>Email</p>
+                </div>
+              </div>
+              <div class="social-column">
+                <div class="social">
+                  <img src="twitter.svg" />
+                  <p>Twitter</p>
+                </div>
+                <div class="social">
+                  <img src="whatsapp.svg" />
+                  <p>Whatsapp</p>
+                </div>
+                <div class="social">
+                  <img src="phone.svg" />
+                  <p>Phone Number</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="grid-container">
-        <% if (profileData.images && Array.isArray(profileData.images)) { %> <%
-        for (var i = 0; i < profileData.images.length; i++) { %>
+        <% if (profileData && Array.isArray(profileData)) { %> <% for (var i =
+        0; i < profileData.length; i++) { %>
         <div class="grid-item">
           <img
-            src="<%= profileData.images[i].imageSrc %>"
-            alt="<%= profileData.images[i].altText %>"
+            src="<%= profileData[i].imageSrc %>"
+            alt="<%= profileData[i].altText %>"
             class="image"
           />
         </div>
-        <% } %> <% } %>
+        <% } %> <% } else { %> <%- include('../components/Loading') %> <% } %>
       </div>
-    </main>
+    </div>
 
     <script src="../scripts/profile.js"></script>
   </body>

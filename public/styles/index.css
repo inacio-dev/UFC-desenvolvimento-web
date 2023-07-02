@@ -1,14 +1,3 @@
-@import url("global.css");
-
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--slate-dark-3);
-  min-height: 100vh;
-}
-
 .pagination {
   display: flex;
   justify-content: center;
@@ -20,6 +9,8 @@ main {
   margin: 0 5px;
   border: none;
   cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .pagination button.active {
@@ -28,13 +19,20 @@ main {
 }
 
 .grid-container {
+  --minWidth: 258px;
+  --gap: 30px;
+
+  --maxWidth: 1180px;
+  --paddingX: 60px;
+
+  width: min(100% - var(--paddingX), var(--maxWidth));
+  margin: 0 auto;
   display: grid;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 30px;
+  grid-gap: var(--gap);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--minWidth)), 1fr)
+  );
 }
 
 .grid-item {
@@ -42,45 +40,16 @@ main {
   transition: all;
   transition-duration: 100ms;
   border-radius: 8px;
+  max-height: 310px;
 }
 
 .image {
   width: 100%;
   height: 100%;
-  object-fit: fill;
-  object-position: left center;
+  object-fit: cover;
+  aspect-ratio: 1 / 2;
 }
 
 .grid-item:hover {
   transform: scale(110%);
-}
-
-@media screen and (min-width: 1024px) {
-  main {
-    padding-top: 5%;
-  }
-
-  .grid-container {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .grid-item {
-    width: 250px;
-    height: 300px;
-  }
-}
-
-@media screen and (max-width: 1023px) {
-  main {
-    padding-top: 250px;
-  }
-
-  .grid-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .grid-item {
-    width: 150px;
-    height: 200px;
-  }
 }

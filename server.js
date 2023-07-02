@@ -24,12 +24,40 @@ const routes = [
     path: "/profile/:id",
     component: "pages/profile",
     data: {
-      profileData: {},
+      profileData: [
+        {
+          imageSrc:
+            "https://img.freepik.com/free-photo/smiling-beautiful-woman-her-handsome-boyfriend-happy-cheerful-multiracial-family-having-tender-moments-grey_158538-18957.jpg?w=1380&t=st=1688154457~exp=1688155057~hmac=44e2bd4cab9e64a53a706592d049c4200894de63d31f3142a9096d0ded579a81",
+          altText: "image 1",
+        },
+        {
+          imageSrc:
+            "https://img.freepik.com/free-photo/couple-love-looking-each-other-with-love-smiling-pink-wall_197531-23575.jpg?w=1380&t=st=1688154488~exp=1688155088~hmac=8811bc1382c293f29a0ada257d8a4a383888ebc5b61fc1febf5cd03a40a5b1b3",
+          altText: "image 2",
+        },
+        {
+          imageSrc:
+            "https://img.freepik.com/premium-photo/abstract-dark-colorful-defocused-gradient-background_162008-66.jpg?w=1380",
+          altText: "image 3",
+        },
+        {
+          imageSrc:
+            "https://img.freepik.com/free-photo/close-up-film-texture-details_23-2149368379.jpg?w=996&t=st=1688154513~exp=1688155113~hmac=cffae52f1e888be13a3bf52d5b3acd53d1333db78a20bea02d1a740927631c04",
+          altText: "image 1",
+        },
+        {
+          imageSrc:
+            "https://img.freepik.com/free-photo/medium-shot-couple-posing-together_52683-91948.jpg?w=1380&t=st=1688154521~exp=1688155121~hmac=e3e0c23e1316eec652b3f57b9c87120af56aff35493567e70c1e2da61d68dd1c",
+          altText: "image 2",
+        },
+      ],
     },
   },
   { path: "/login", component: "pages/login", data: {} },
   { path: "/register", component: "pages/register", data: {} },
   { path: "/adm-login", component: "pages/adm-login", data: {} },
+  { path: "/my-image", component: "pages/my-image", data: {} },
+  { path: "/buy", component: "pages/buy", data: {} },
 ];
 
 const routeMatchers = routes.map((route) => {
@@ -212,7 +240,7 @@ app.post("/request/logout", (req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 
   res.json(data);
-});
+}); */
 
 app.get("/data/profile", (req, res) => {
   const type = req.headers["type"];
@@ -256,7 +284,7 @@ app.get("/data/profile", (req, res) => {
   res.setHeader("Cache-Control", "no-cache");
 
   res.json(data);
-}); */
+});
 
 // --------------------------------------------------------------------------
 
