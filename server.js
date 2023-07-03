@@ -166,7 +166,9 @@ app.get("/data", (req, res) => {
 
 app.post("/request/user", (req, res) => {
   const user = {
-    isLoggedIn: true,
+    isLoggedIn: 
+    true,
+    // false,
     id: 1,
     type: 0,
     token: "asdfasfjkbbchasd",
@@ -179,7 +181,9 @@ app.post("/request/user", (req, res) => {
 
 app.post("/request/logout", (req, res) => {
   const user = {
-    isLoggedIn: false,
+    isLoggedIn: 
+    false,
+    // true,
     id: 0,
     type: 0,
     token: "",
