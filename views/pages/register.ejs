@@ -22,24 +22,29 @@
               <a href="/login">Sign in now</a>
             </nav>
 
-            <form action="#">
+            <form id="signup-form" method="POST">
               <div class="input-box">
-                <span class="icon"> </span>
-                <input type="text" required />
+                <span class="icon"></span>
+                <input type="text" name="email" required />
                 <label>Email</label>
               </div>
 
               <div class="input-box">
-                <span class="icon"> </span>
-                <input type="password" required />
+                <span class="icon"></span>
+                <input type="password" name="password" required />
                 <label>Password</label>
               </div>
 
               <div class="input-box">
-                <span class="icon"> </span>
-                <input type="password" required />
+                <span class="icon"></span>
+                <input type="password" name="repeatPassword" required />
                 <label>Repeat Password</label>
               </div>
+
+              <select class="custom-select" name="userType">
+                <option value="empresa">Empresa</option>
+                <option value="normal">Normal</option>
+              </select>
               <button type="submit" class="login_btn" id="signUp_btn">
                 Sign Up
               </button>

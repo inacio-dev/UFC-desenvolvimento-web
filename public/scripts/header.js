@@ -20,7 +20,7 @@ function renderPageHeader() {
     exploreItem.appendChild(exploreLink);
     navItems.appendChild(exploreItem);
 
-    if (user.type === 0) {
+    if (user.type === "normal") {
       var publishItem = document.createElement("li");
       var publishLink = document.createElement("a");
       publishLink.href = "/publish";
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
 
       axios
-        .post("/request/logout")
+        .post("http://127.0.0.1:8000/api/logout/")
         .then(function (response) {
           var user = response.data;
 
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /* document
+  document
     .getElementById("searchForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var url = "/search?value=" + encodeURIComponent(searchValue);
 
       window.location.href = url;
-    }); */
+    });
 
   /* const chk = document.getElementById("chk");
 

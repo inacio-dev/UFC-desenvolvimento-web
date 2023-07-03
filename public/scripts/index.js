@@ -13,7 +13,7 @@ function renderPage() {
 
       var img = document.createElement("img");
       img.src = imageData[i].imageSrc;
-      img.alt = imageData[i].altText;
+      img.alt = imageData[i].title;
       img.classList.add("image");
 
       gridItem.appendChild(img);
@@ -47,7 +47,7 @@ function renderPage() {
 
 function fetchDataAndRender() {
   axios
-    .get("http://localhost:3000/data")
+    .get("http://127.0.0.1:8000/api/images/")
     .then(function (response) {
       var imageData = response.data.images;
       var totalPages = response.data.totalPages;
@@ -66,7 +66,7 @@ function fetchDataAndRender() {
 
 function changePage(pageNumber) {
   axios
-    .get(`http://localhost:3000/data?pag=${pageNumber}`)
+    .get(`http://127.0.0.1:8000/api/images?page=${pageNumber}`)
     .then(function (response) {
       var imageData = response.data.images;
       var totalPages = response.data.totalPages;

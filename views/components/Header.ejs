@@ -25,7 +25,7 @@
         <nav>
           <ul>
             <li><a href="/">Explore</a></li>
-            <% if (user.type === 0) { %>
+            <% if (user.type === "normal") { %>
             <li><a href="/publish">Publish</a></li>
             <% } %>
             <li><a href="/profile/<%= user.id %>">My Profile</a></li>
@@ -59,16 +59,15 @@
             <label for="A-plus">A+</label>
           </button>
         </div>
-        <div class="dark_light">
+        <!-- <div class="dark_light">
           <input type="checkbox" class="checkbox" id="chk" />
           <label for="chk" class="label">
             <i class="fas fa-sun"></i>
             <i class="fas fa-moon"></i>
-            <!-- <img src="../images/sol.png" alt="sol" class="sol_img">
-                    <img src="../images/lua.png" alt="lua" class="lua_img"> -->
+
             <div class="ball"></div>
           </label>
-        </div>
+        </div> -->
       </div>
     </header>
 

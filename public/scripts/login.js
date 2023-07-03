@@ -17,17 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
     var password = passwordInput.value;
 
     axios
-      .post("/request/user", { email: email, password: password })
+      .post("http://127.0.0.1:8000/api/login/", {
+        email: email,
+        password: password,
+      })
       .then(function (response) {
         var user = response.data;
         localStorage.setItem("user", JSON.stringify(user));
-        axios.defaults.headers.common["Authorization"] = "Bearer " + user.token;
 
         console.log(user);
         window.location.href = "/";
       })
       .catch(function (error) {
-        console.error(error);
+        alert(error);
       });
   });
 });

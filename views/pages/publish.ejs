@@ -5,42 +5,55 @@
 
   <body>
     <main>
-      <div class="grid-container">
-        <div class="grid-item">
-          <div class="grid-image">
-            <img src="../images/test-image.jpg" alt="image" class="image" />
-          </div>
-          <!-- <span class="categorie-name">Wallpapers</span> -->
-        </div>
-
-        <div class="grid-item">
-          <div class="content-box">
-            <input type="text" required />
-            <label> Title </label>
-          </div>
-
-          <!-- <span class="categorie-name">Design</span> -->
-        </div>
-
-        <div class="grid-item">
-          <div class="content-box">
-            <input type="text" required />
-            <label>Price</label>
+      <form
+        id="publish-form"
+        method="POST"
+        action="http://localhost:8000/api/publish-image/"
+        enctype="multipart/form-data"
+      >
+        <div class="grid-container">
+          <div class="grid-item">
+            <div class="grid-image">
+              <img id="preview-image" src="#" alt="Preview" class="image" />
+            </div>
           </div>
 
-          <!-- <span class="categorie-name">Design</span> -->
-        </div>
+          <div class="grid-item">
+            <div class="content-box">
+              <input type="text" id="title-input" name="title" required />
+              <label for="title-input">Title</label>
+            </div>
+          </div>
 
-        <div class="grid-item">
-          <!-- <div class="grid-image">
-                    <img src="../images/test-image.jpg" alt="image" class="image" />
-                </div> -->
-          <button class="btn">
-            <label>Publish</label>
-          </button>
-          <!-- <span class="categorie-name">Photos</span> -->
+          <div class="grid-item">
+            <div class="content-box">
+              <input type="text" id="price-input" name="price" required />
+              <label for="price-input">Price</label>
+            </div>
+          </div>
+
+          <div class="grid-item">
+            <div class="content-box">
+              <input
+                type="file"
+                id="image-input"
+                name="image"
+                accept="image/*"
+                required
+              />
+              <label for="image-input">Choose Image</label>
+            </div>
+          </div>
+
+          <div class="grid-item">
+            <button type="submit" id="publish-button" class="btn">
+              <label>Publish</label>
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </main>
+
+    <script src="../scripts/publish.js"></script>
   </body>
 </html>
