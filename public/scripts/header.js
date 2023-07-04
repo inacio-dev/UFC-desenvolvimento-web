@@ -127,7 +127,6 @@ document.addEventListener("DOMContentLoaded", function () {
           var user = response.data;
 
           localStorage.removeItem("user");
-          axios.defaults.headers.common["Authorization"] = "";
 
           console.log(user);
           window.location.href = "/";

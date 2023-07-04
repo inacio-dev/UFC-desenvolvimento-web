@@ -4,21 +4,20 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import User, Image
 import json
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import QueryDict
 
 def index(request):
     if request.method == 'GET':
         images_per_page = 8
-        images = Image.objects.all().order_by('-upload_date')
+        images = Image.objects.filter(purchased_by=None).order_by('-upload_date')
         
         paginator = Paginator(images, images_per_page)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
         response_data = {
-            'images': [{'imageSrc': 'http://localhost:8000/' + image.image.url, 'title': image.title, 'price': str(image.price)} for image in page_obj],
+            'images': [{'imageSrc': request.build_absolute_uri(image.image.url), 'title': image.title, 'price': str(image.price)} for image in page_obj],
             'totalPages': paginator.num_pages,
             'currentPage': page_obj.number
         }
@@ -33,15 +32,108 @@ def index(request):
         response["Access-Control-Allow-Methods"] = "POST"
         return response
 
+@csrf_exempt
+def update_profile(request):
+    if request.method == 'PATCH':
+        try:
+            req = json.loads(request.body)
+            description = req.get("description")
+            username = req.get("username")
+            user_id = req.get("user")
+
+            user = User.objects.get(id=user_id)
+
+            if user.is_logged_in():
+                user.description = description
+                user.username = username
+                user.save()
+
+                return JsonResponse({'success': True, 'message': 'Profile updated successfully.'})
+            else:
+                return JsonResponse({'error': 'Usuário precisa estar logado.'}, status=401)
+        except (ValidationError, ValueError, TypeError) as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Usuário não encontrado.'}, status=404)
+    else:
+        response = JsonResponse({'error': 'Method not allowed.'}, status=405)
+        response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+        response["Access-Control-Allow-Methods"] = "PATCH"
+        return response
+
+
+def get_profile(request, user_id):
+    if request.method == 'GET':
+        try:
+            user = User.objects.get(id=user_id)
+
+            if user.type == 'normal':
+                images = Image.objects.filter(user=user, purchased_by=None).order_by('-upload_date')
+                description = user.description
+                wallet = str(user.wallet)
+                image_user = user.profile_image
+
+                if image_user and image_user.file:
+                    image_user_url = request.build_absolute_uri(image_user.url)
+                else:
+                    image_user_url = ""
+
+                response_data = {
+                    'name': user.username,
+                    'email': user.email,
+                    'type': user.type,
+                    'description': description,
+                    'wallet': wallet,
+                    'image_user': image_user_url,
+                    'images': [{'imageSrc': request.build_absolute_uri(image.image.url), 'title': image.title, 'price': str(image.price)} for image in images],
+                }
+
+                response = JsonResponse(response_data)
+                response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+                response["Access-Control-Allow-Methods"] = "GET"
+                return response
+            elif user.type == 'empresa':
+                images = Image.objects.filter(purchased_by=user).order_by('-upload_date')
+                description = user.description
+                wallet = str(user.wallet)
+                image_user = user.profile_image
+
+                if image_user and image_user.file:
+                    image_user_url = request.build_absolute_uri(image_user.url)
+                else:
+                    image_user_url = ""
+
+                response_data = {
+                    'name': user.username,
+                    'email': user.email,
+                    'type': user.type,
+                    'description': description,
+                    'wallet': wallet,
+                    'image_user': image_user_url,
+                    'images': [{'imageSrc': request.build_absolute_uri(image.image.url), 'title': image.title, 'price': str(image.price)} for image in images],
+                }
+
+                response = JsonResponse(response_data)
+                response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+                response["Access-Control-Allow-Methods"] = "GET"
+                return response
+        except (ValidationError, ValueError, TypeError) as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    else:
+        response = JsonResponse({'error': 'Method not allowed.'}, status=405)
+        response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+        response["Access-Control-Allow-Methods"] = "GET"
+        return response
+
 def search_images(request):
     if request.method == 'GET':
         query_params = QueryDict(request.GET.urlencode())
         value = query_params.get('value')
         
-        images = Image.objects.filter(title__icontains=value)
+        images = Image.objects.filter(title__icontains=value, purchased_by=None).order_by('-upload_date')
         
         response_data = {
-            'images': [{'imageSrc': 'http://localhost:8000/' + image.image.url, 'title': image.title, 'price': str(image.price)} for image in images],
+            'images': [{'imageSrc': request.build_absolute_uri(image.image.url), 'title': image.title, 'price': str(image.price)} for image in images],
         }
         
         response = JsonResponse(response_data)
@@ -55,23 +147,30 @@ def search_images(request):
         return response
 
 @csrf_exempt
-@login_required
 def publish_image(request):
     if request.method == 'POST':
         try:
             title = request.POST.get('title')
             price = request.POST.get('price')
-            image_file = request.FILES.get('image')
+            image = request.FILES.get('image')
+            user_id = request.POST.get("user")
 
-            user = request.user
+            user = User.objects.get(id=user_id)
 
-            Image.objects.create(title=title, price=price, image=image_file, user=user)
+            if user.is_logged_in():
+                image = Image(title=title, price=price, image=image, user=user)
+                image.save()
 
-            return JsonResponse({'success': True, 'message': 'Image published successfully.'})
+                return JsonResponse({'success': True, 'message': 'Image published successfully.'})
+            else:
+                return JsonResponse({'error': 'Usuário precisa estar logado.'}, status=401)
         except (ValidationError, ValueError, TypeError) as e:
             return JsonResponse({'error': str(e)}, status=400)
     else:
-        return JsonResponse({'error': 'Method not allowed.'}, status=405)
+        response = JsonResponse({'error': 'Method not allowed.'}, status=405)
+        response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+        response["Access-Control-Allow-Methods"] = "POST"
+        return response
 
 @csrf_exempt
 def register(request):

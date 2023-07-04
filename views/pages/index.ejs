@@ -4,28 +4,28 @@
   </head>
 
   <body>
-      <%- include('../components/CategoriesBtn') %>
+    <!-- <%- include('../components/CategoriesBtn') %> -->
 
-      <div class="grid-container">
-        <% if (imageData && Array.isArray(imageData)) { %> <% for (var i = 0; i
-        < imageData.length; i++) { %>
-        <div class="grid-item">
-          <img
-            src="<%= imageData[i].imageSrc %>"
-            alt="<%= imageData[i].altText %>"
-            class="image"
-          />
-        </div>
-        <% } %> <% } else { %> <%- include('../components/Loading') %> <% } %>
+    <div class="grid-container">
+      <% if (imageData && Array.isArray(imageData)) { %> <% for (var i = 0; i <
+      imageData.length; i++) { %>
+      <div class="grid-item">
+        <img
+          src="<%= imageData[i].imageSrc %>"
+          alt="<%= imageData[i].altText %>"
+          class="image"
+        />
       </div>
+      <% } %> <% } else { %> <%- include('../components/Loading') %> <% } %>
+    </div>
 
-      <div class="pagination">
-        <% if (totalPages > 1) { %> <% if (currentPage > 1) { %>
-        <button onclick="changePage(currentPage - 1)">Anterior</button>
-        <% } %> <% if (currentPage < totalPages) { %>
-        <button onclick="changePage(currentPage + 1)">Próximo</button>
-        <% } %> <% } %>
-      </div>
+    <div class="pagination">
+      <% if (totalPages > 1) { %> <% if (currentPage > 1) { %>
+      <button onclick="changePage(currentPage - 1)">Anterior</button>
+      <% } %> <% if (currentPage < totalPages) { %>
+      <button onclick="changePage(currentPage + 1)">Próximo</button>
+      <% } %> <% } %>
+    </div>
 
     <script src="../scripts/index.js"></script>
   </body>

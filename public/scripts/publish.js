@@ -1,4 +1,4 @@
-/* document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   var user = JSON.parse(localStorage.getItem("user"));
 
   if (!user || !user.isLoggedIn) {
@@ -22,24 +22,42 @@
           title: title,
           price: price,
           image: image,
+          user: user.id,
         },
         {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: {
+            "Content-Type": "multipart/form-data", // Defina o cabeçalho "Content-Type"
+          },
         }
       )
       .then(function (response) {
         var data = response.data;
 
-        if (data.error) {
-          alert(data.error);
-        } else {
-          alert(data.message);
-          // Redirect to the homepage
-          window.location.href = "/";
-        }
+        alert(data.message);
+        window.location.href = "/";
       })
       .catch(function (error) {
-        alert(error);
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem("user");
+          alert(error.response);
+          window.location.href = "/";
+        } else {
+          alert("Ocorreu um erro na solicitação. Por favor, tente novamente.");
+          console.log(error);
+        }
       });
   });
-}); */
+
+  var previewImage = document.querySelector("#preview-image");
+  var imageInput = document.getElementById("image-input");
+  imageInput.addEventListener("change", function () {
+    var file = imageInput.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      previewImage.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  });
+});

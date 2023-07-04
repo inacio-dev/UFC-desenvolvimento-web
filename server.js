@@ -24,33 +24,16 @@ const routes = [
     path: "/profile/:id",
     component: "pages/profile",
     data: {
-      profileData: [
-        {
-          imageSrc:
-            "https://img.freepik.com/free-photo/smiling-beautiful-woman-her-handsome-boyfriend-happy-cheerful-multiracial-family-having-tender-moments-grey_158538-18957.jpg?w=1380&t=st=1688154457~exp=1688155057~hmac=44e2bd4cab9e64a53a706592d049c4200894de63d31f3142a9096d0ded579a81",
-          altText: "image 1",
-        },
-        {
-          imageSrc:
-            "https://img.freepik.com/free-photo/couple-love-looking-each-other-with-love-smiling-pink-wall_197531-23575.jpg?w=1380&t=st=1688154488~exp=1688155088~hmac=8811bc1382c293f29a0ada257d8a4a383888ebc5b61fc1febf5cd03a40a5b1b3",
-          altText: "image 2",
-        },
-        {
-          imageSrc:
-            "https://img.freepik.com/premium-photo/abstract-dark-colorful-defocused-gradient-background_162008-66.jpg?w=1380",
-          altText: "image 3",
-        },
-        {
-          imageSrc:
-            "https://img.freepik.com/free-photo/close-up-film-texture-details_23-2149368379.jpg?w=996&t=st=1688154513~exp=1688155113~hmac=cffae52f1e888be13a3bf52d5b3acd53d1333db78a20bea02d1a740927631c04",
-          altText: "image 1",
-        },
-        {
-          imageSrc:
-            "https://img.freepik.com/free-photo/medium-shot-couple-posing-together_52683-91948.jpg?w=1380&t=st=1688154521~exp=1688155121~hmac=e3e0c23e1316eec652b3f57b9c87120af56aff35493567e70c1e2da61d68dd1c",
-          altText: "image 2",
-        },
-      ],
+      profileData: {
+        profileImage: "",
+        username: "",
+        images: [],
+        follows: 0,
+        likes: 0,
+        price: "",
+        description: "",
+        socialMedia: [],
+      },
     },
   },
   { path: "/login", component: "pages/login", data: {} },
@@ -82,117 +65,6 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
-
-// --------------------------------------------------------------------------
-
-app.get("/data", (req, res) => {
-  const imageData = [
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/smiling-beautiful-woman-her-handsome-boyfriend-happy-cheerful-multiracial-family-having-tender-moments-grey_158538-18957.jpg?w=1380&t=st=1688154457~exp=1688155057~hmac=44e2bd4cab9e64a53a706592d049c4200894de63d31f3142a9096d0ded579a81",
-      altText: "image 1",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/couple-love-looking-each-other-with-love-smiling-pink-wall_197531-23575.jpg?w=1380&t=st=1688154488~exp=1688155088~hmac=8811bc1382c293f29a0ada257d8a4a383888ebc5b61fc1febf5cd03a40a5b1b3",
-      altText: "image 2",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/premium-photo/abstract-dark-colorful-defocused-gradient-background_162008-66.jpg?w=1380",
-      altText: "image 3",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/close-up-film-texture-details_23-2149368379.jpg?w=996&t=st=1688154513~exp=1688155113~hmac=cffae52f1e888be13a3bf52d5b3acd53d1333db78a20bea02d1a740927631c04",
-      altText: "image 1",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/medium-shot-couple-posing-together_52683-91948.jpg?w=1380&t=st=1688154521~exp=1688155121~hmac=e3e0c23e1316eec652b3f57b9c87120af56aff35493567e70c1e2da61d68dd1c",
-      altText: "image 2",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/authentic-anamorphic-lens-flare-with-ring-ghost-effect_53876-105282.jpg?w=1380&t=st=1688154530~exp=1688155130~hmac=6570b0e3583e8814e4116eb3f51b0935bed0980b035d822626a0efd10c93dbfb",
-      altText: "image 3",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/couple-enjoying-valentines-day-celebration_23-2149202991.jpg?t=st=1688154453~exp=1688155053~hmac=df84336d1ec9de205d653735f49775889ed389908e79220fb3c5386d18d8b101",
-      altText: "image 2",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/valentines-day-celebration_23-2149202969.jpg?w=1380&t=st=1688154543~exp=1688155143~hmac=977f03362bce7a5b98731511cc6711cccfc38f8475bdcdcb90842dacb0ac43c2",
-      altText: "image 3",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg?w=1380&t=st=1688154551~exp=1688155151~hmac=199bead03c937254d8e1b5343c004b50f15057767339cddbd1a28f98579e317a",
-      altText: "image 1",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/dentist-doing-check-up-patient_23-2149206225.jpg?w=1380&t=st=1688154556~exp=1688155156~hmac=832697f31d328e465624c98bf24e954ba16240e83da3106d32e30784396f41a0",
-      altText: "image 2",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/smiley-woman-showing-sticker-arm-after-getting-vaccine_23-2149014463.jpg?w=740&t=st=1688154562~exp=1688155162~hmac=5c67a3ed1250837dcb60c735968f8133197c9663f1edebef7bea41f1fbba17e6",
-      altText: "image 3",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-54587.jpg?w=826&t=st=1688154569~exp=1688155169~hmac=266e7f4706b3b40a04f90d378c7d6ac6e97a85ab03ef960599e970859e2fe63c",
-      altText: "image 2",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/foamy-beer-gold-pint-glass-generative-ai_188544-12316.jpg?w=826&t=st=1688154574~exp=1688155174~hmac=69ac088325ca99aeb96d887bcb0605709c2f2cda727a1fbf889757c04d249737",
-      altText: "image 3",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg?w=1380&t=st=1688154551~exp=1688155151~hmac=199bead03c937254d8e1b5343c004b50f15057767339cddbd1a28f98579e317a",
-      altText: "image 1",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/dentist-doing-check-up-patient_23-2149206225.jpg?w=1380&t=st=1688154556~exp=1688155156~hmac=832697f31d328e465624c98bf24e954ba16240e83da3106d32e30784396f41a0",
-      altText: "image 2",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/smiley-woman-showing-sticker-arm-after-getting-vaccine_23-2149014463.jpg?w=740&t=st=1688154562~exp=1688155162~hmac=5c67a3ed1250837dcb60c735968f8133197c9663f1edebef7bea41f1fbba17e6",
-      altText: "image 3",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-54587.jpg?w=826&t=st=1688154569~exp=1688155169~hmac=266e7f4706b3b40a04f90d378c7d6ac6e97a85ab03ef960599e970859e2fe63c",
-      altText: "image 2",
-    },
-    {
-      imageSrc:
-        "https://img.freepik.com/free-photo/foamy-beer-gold-pint-glass-generative-ai_188544-12316.jpg?w=826&t=st=1688154574~exp=1688155174~hmac=69ac088325ca99aeb96d887bcb0605709c2f2cda727a1fbf889757c04d249737",
-      altText: "image 3",
-    },
-  ];
-
-  const imagesPerPage = 8; // Number of images per page
-  const totalImages = imageData.length;
-  const totalPages = Math.ceil(totalImages / imagesPerPage);
-  const currentPage = req.query.pag || 1; // Current page (default: 1)
-  const startIndex = (currentPage - 1) * imagesPerPage;
-  const endIndex = startIndex + imagesPerPage;
-
-  const images = imageData.slice(startIndex, endIndex);
-
-  res.setHeader("Cache-Control", "no-cache");
-  res.json({ images, totalPages, currentPage });
-});
-
-// --------------------------------------------------------------------------
 
 app.get("*", (req, res) => {
   const user = {};
