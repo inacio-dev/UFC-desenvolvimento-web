@@ -1,14 +1,22 @@
 let font_size = 0;
+let dark_light = false
 var html = document.querySelector("html");
+var checkbox = document.querySelector("checkbox");
 
 function renderPageHeader() {
   var user = JSON.parse(localStorage.getItem("user"));
 
   var fontSizePreference = getFontSizePreference();
+  dark_light = get_light_Preference() == 'true';
+  // checkBox.checked = get_checkbox_state() == 'true'
   if (fontSizePreference) {
     font_size = parseInt(fontSizePreference);
     html.classList.add("A" + font_size);
   }
+  if(dark_light){
+    html.classList.add("light")
+  }
+
 
   if (user && user.isLoggedIn) {
     var navItems = document.createElement("ul");
@@ -155,3 +163,34 @@ document.addEventListener("DOMContentLoaded", function () {
     html.classList.toggle("light");
   }); */
 });
+
+function set_light_Preference(dark_light){
+  localStorage.setItem("dark_light_Preference", dark_light);
+}
+function get_light_Preference() {
+  return localStorage.getItem("dark_light_Preference");
+}
+
+function set_checkbox_state(state){
+  localStorage.setItem("checkbox_state", state);
+}
+function get_checkbox_state() {
+  return localStorage.getItem("checkbox_state");
+}
+
+function switch_light(){
+  html.classList.toggle('light')
+  // checkbox
+  // if (checkBox.checked == true){
+  //   checkBox.checked = false;
+  // } else {
+  //   checkBox.checked = true;
+  // }
+  if(dark_light){
+    dark_light = false
+  }else{
+    dark_light = true
+  }
+  set_light_Preference(dark_light)
+  set_checkbox_state(checkBox.checked)
+}

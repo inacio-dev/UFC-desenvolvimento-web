@@ -13,7 +13,7 @@ const routes = [
     component: "pages/index",
     data: { imageData: {}, currentPage: 0, totalPages: 0 },
   },
-  {
+  { 
     path: "/categories",
     component: "pages/categories",
     data: { categoriesData: {} },
