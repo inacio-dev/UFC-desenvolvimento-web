@@ -61,6 +61,80 @@ def update_profile(request):
         response["Access-Control-Allow-Methods"] = "PATCH"
         return response
 
+@csrf_exempt
+def buy_image(request):
+    if request.method == 'PATCH':
+        try:
+            req = json.loads(request.body)
+            image_id = req.get("image")
+            user_id = req.get("user")
+
+            user = User.objects.get(id=user_id)
+            image = Image.objects.get(pk=int(image_id))
+
+            if user.is_logged_in() and image.purchased_by == None:
+                if user.type == "empresa":
+                    if float(user.wallet) - float(image.price) < 0:
+                        return JsonResponse({'error': 'Usuário não pode retirar mais do que possui.'}, status=402)
+                    else:
+                        wallet = float(user.wallet) - float(image.price)
+                        user.wallet = wallet
+                        user.save()
+                        image.purchased_by = user
+                        image.save()
+                else:
+                    return JsonResponse({'error': 'Usuário não pode efetuar compra.'}, status=402)
+
+                return JsonResponse({'success': True, 'message': 'Wallet updated successfully.'})
+            else:
+                return JsonResponse({'error': 'Usuário precisa estar logado.'}, status=401)
+        except (ValidationError, ValueError, TypeError) as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Usuário não encontrado.'}, status=404)
+    else:
+        response = JsonResponse({'error': 'Method not allowed.'}, status=405)
+        response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+        response["Access-Control-Allow-Methods"] = "PATCH"
+        return response
+
+@csrf_exempt
+def update_wallet(request):
+    if request.method == 'PATCH':
+        try:
+            req = json.loads(request.body)
+            value = req.get("value")
+            user_id = req.get("user")
+
+            user = User.objects.get(id=user_id)
+
+            if user.is_logged_in():
+                if user.type == "normal":
+                    if float(user.wallet) - float(value) < 0:
+                        return JsonResponse({'error': 'Usuário não pode retirar mais do que possui.'}, status=402)
+                    else :
+                        wallet = float(user.wallet) - float(value)
+                        user.wallet = wallet
+                        user.save()
+                if user.type == "empresa":
+                    wallet = float(user.wallet) + float(value)
+                    user.wallet = wallet
+                    user.save()
+
+                return JsonResponse({'success': True, 'message': 'Wallet updated successfully.'})
+            else:
+                return JsonResponse({'error': 'Usuário precisa estar logado.'}, status=401)
+        except (ValidationError, ValueError, TypeError) as e:
+            return JsonResponse({'error': str(e)}, status=400)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Usuário não encontrado.'}, status=404)
+    else:
+        response = JsonResponse({'error': 'Method not allowed.'}, status=405)
+        response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+        response["Access-Control-Allow-Methods"] = "PATCH"
+        return response
+
+
 
 def get_profile(request, user_id):
     if request.method == 'GET':
