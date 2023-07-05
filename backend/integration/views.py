@@ -71,6 +71,7 @@ def buy_image(request):
 
             user = User.objects.get(id=user_id)
             image = Image.objects.get(pk=int(image_id))
+            seller = image.user
 
             if user.is_logged_in() and image.purchased_by == None:
                 if user.type == "empresa":
@@ -80,6 +81,8 @@ def buy_image(request):
                         wallet = float(user.wallet) - float(image.price)
                         user.wallet = wallet
                         user.save()
+                        seller.wallet = float(seller.wallet) + float(image.price)
+                        seller.save()
                         image.purchased_by = user
                         image.save()
                 else:
