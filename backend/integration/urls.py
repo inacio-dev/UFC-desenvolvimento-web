@@ -1,6 +1,5 @@
 from django.urls import path
-from django.urls import re_path
-from .views import register, user_login, user_logout, index, publish_image, search_images, get_profile, update_profile
+from .views import register, user_login, user_logout, index, publish_image, search_images, get_profile, update_profile, update_wallet, buy_image
 
 urlpatterns = [
     path('images/', index, name='index'),
@@ -11,4 +10,6 @@ urlpatterns = [
     path('search/', search_images, name='search_images'),
     path('profile/<user_id>', get_profile, name='get_profile'),
     path('update-profile/', update_profile, name='update_profile'),
+    path('update-wallet/', update_wallet, name='update_wallet'),
+    path('buy-image/', buy_image, name='buy_image'),
 ]
